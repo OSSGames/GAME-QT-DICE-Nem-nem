@@ -8,73 +8,73 @@
         <translation type="obsolete">Roll die (dice) :</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="71"/>
+        <location filename="automate.cpp" line="68"/>
         <source>J&apos;Ã©tudie le lancer : %1...</source>
         <translation>I&apos;m thinking about your throw : %1...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="133"/>
+        <location filename="automate.cpp" line="130"/>
         <source>Jouez la ligne %1 dans la colonne %2 (gain : %3 points)</source>
         <translation>Play in the box at line %1 column %2 (%3 points)</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="151"/>
+        <location filename="automate.cpp" line="145"/>
         <source>Effacez la cellule ligne %1 colonne %2</source>
         <translation>Play in the box at line %1 column %2 (0 pts)</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="171"/>
+        <location filename="automate.cpp" line="163"/>
         <source>Rejouez le(s) dÃ©(s) nÂ° %1 pour tenter de marquer la ligne %2 dans la colonne %3</source>
         <translation>Play dice %1 to try box at line %2 column %3</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="204"/>
+        <location filename="automate.cpp" line="194"/>
         <source>Evaluer chacune des %1 cases jouables...</source>
         <translation>Evaluating the %1 playable boxes...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="263"/>
+        <location filename="automate.cpp" line="253"/>
         <source>Recherche de la meilleure case jouable immÃ©diatement...</source>
         <translation>Searching best immediately playable box...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="282"/>
-        <location filename="automate.cpp" line="318"/>
-        <location filename="automate.cpp" line="349"/>
-        <location filename="automate.cpp" line="377"/>
+        <location filename="automate.cpp" line="272"/>
+        <location filename="automate.cpp" line="308"/>
+        <location filename="automate.cpp" line="339"/>
+        <location filename="automate.cpp" line="367"/>
         <source>TrouvÃ©e : c&apos;est la ligne %1 dans la colonne %2</source>
         <translation>... found : line %1 column %2</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="288"/>
-        <location filename="automate.cpp" line="324"/>
-        <location filename="automate.cpp" line="355"/>
-        <location filename="automate.cpp" line="383"/>
+        <location filename="automate.cpp" line="278"/>
+        <location filename="automate.cpp" line="314"/>
+        <location filename="automate.cpp" line="345"/>
+        <location filename="automate.cpp" line="373"/>
         <source>... recherche infructueuse</source>
         <translation>No box found</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="296"/>
+        <location filename="automate.cpp" line="286"/>
         <source>Recherche de la meilleure case rapportant des points...</source>
         <translation>Searching best box giving points...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="332"/>
+        <location filename="automate.cpp" line="322"/>
         <source>Recherche de la meilleure case Ã  amÃ©liorer...</source>
         <translation>Searching box to improve...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="363"/>
+        <location filename="automate.cpp" line="353"/>
         <source>Recherche d&apos;une case Ã  sacrifier...</source>
         <translation>Saerching best box to sacrify...</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="816"/>
+        <location filename="automate.cpp" line="806"/>
         <source>Ligne %1 colonne %2 --&gt; note = %3</source>
         <translation>Line %1 column %2 --&gt; note = %3</translation>
     </message>
     <message>
-        <location filename="automate.cpp" line="983"/>
+        <location filename="automate.h" line="270"/>
         <source>(Robot) </source>
         <translation>(Robot)</translation>
     </message>
@@ -82,7 +82,7 @@
 <context>
     <name>ColorSelectButton</name>
     <message>
-        <location filename="colorselectbutton.cpp" line="61"/>
+        <location filename="colorselectbutton.cpp" line="65"/>
         <source>Choisissez une couleur</source>
         <translation>Select a color</translation>
     </message>
@@ -90,159 +90,50 @@
 <context>
     <name>GameBoard</name>
     <message>
-        <location filename="gameboard.cpp" line="260"/>
+        <location filename="gameboard.cpp" line="251"/>
         <source>Ã vous de jouer !</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>GridModel</name>
+    <name>Grille</name>
     <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>As</source>
-        <translation type="unfinished">Ace</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>Deux</source>
-        <translation type="unfinished">Two</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>Trois</source>
-        <translation type="unfinished">Three</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>Quatre</source>
-        <translation type="unfinished">Four</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>Cinq</source>
-        <translation type="unfinished">Five</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="26"/>
-        <source>Six</source>
-        <translation type="unfinished">Six</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="27"/>
-        <source>Total haut</source>
-        <translation type="unfinished">Upper section total</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="27"/>
-        <source>Bonus</source>
-        <translation type="unfinished">Bonus</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="28"/>
-        <source>Une paire</source>
-        <translation type="unfinished">Two of a kind</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="28"/>
-        <source>Deux paires</source>
-        <translation type="unfinished">Two pairs</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="28"/>
-        <source>Brelan</source>
-        <translation type="unfinished">Three of a kind</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="28"/>
-        <source>CarrÃ©</source>
-        <translation type="unfinished">Four of a kind</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="28"/>
-        <source>Full</source>
-        <translation type="unfinished">Full house</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="29"/>
-        <source>Petite suite</source>
+        <location filename="grille.cpp" line="395"/>
+        <source>Cellules</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="29"/>
-        <source>Grande suite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="29"/>
-        <source>Plus</source>
-        <translation type="unfinished">Max</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="29"/>
-        <source>Moins</source>
-        <translation type="unfinished">Min</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="29"/>
-        <source>Nem-Nem</source>
-        <translation type="unfinished">Nem-Nem</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="30"/>
-        <source>Total colonne</source>
-        <translation type="unfinished">Column total</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="30"/>
-        <source>Total gÃ©nÃ©ral</source>
-        <translation type="unfinished">Grand total</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="32"/>
-        <source>Descendante</source>
-        <translation type="unfinished">Downwards</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="32"/>
-        <source>Montante</source>
-        <translation type="unfinished">Upwards</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="32"/>
-        <source>Libre</source>
-        <translation type="unfinished">Free</translation>
-    </message>
-    <message>
-        <location filename="gridmodel.cpp" line="32"/>
-        <source>Sec</source>
-        <translation type="unfinished">One shot</translation>
     </message>
 </context>
 <context>
     <name>GrilleModel</name>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>As</source>
-        <translation type="obsolete">Ace</translation>
+        <translation>Ace</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>Deux</source>
-        <translation type="obsolete">Two</translation>
+        <translation>Two</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>Trois</source>
-        <translation type="obsolete">Three</translation>
+        <translation>Three</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>Quatre</source>
-        <translation type="obsolete">Four</translation>
+        <translation>Four</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>Cinq</source>
-        <translation type="obsolete">Five</translation>
+        <translation>Five</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="26"/>
         <source>Six</source>
-        <translation type="obsolete">Six</translation>
+        <translation>Six</translation>
     </message>
     <message>
         <source>TOTAL HAUT</source>
@@ -253,36 +144,54 @@
         <translation type="obsolete">BONUS</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="27"/>
         <source>Total haut</source>
-        <translation type="obsolete">Upper section total</translation>
+        <translation>Upper section total</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="27"/>
         <source>Bonus</source>
-        <translation type="obsolete">Bonus</translation>
+        <translation>Bonus</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="28"/>
         <source>Une paire</source>
-        <translation type="obsolete">Two of a kind</translation>
+        <translation>Two of a kind</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="28"/>
         <source>Deux paires</source>
-        <translation type="obsolete">Two pairs</translation>
+        <translation>Two pairs</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="28"/>
         <source>Brelan</source>
-        <translation type="obsolete">Three of a kind</translation>
+        <translation>Three of a kind</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="28"/>
         <source>CarrÃ©</source>
-        <translation type="obsolete">Four of a kind</translation>
+        <translation>Four of a kind</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="28"/>
         <source>Full</source>
-        <translation type="obsolete">Full house</translation>
+        <translation>Full house</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="29"/>
+        <source>Petite suite</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="grillemodel.cpp" line="29"/>
+        <source>Grande suite</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="grillemodel.cpp" line="32"/>
         <source>Sec</source>
-        <translation type="obsolete">One shot</translation>
+        <translation>One shot</translation>
     </message>
     <message>
         <source>1 coup</source>
@@ -293,24 +202,29 @@
         <translation type="obsolete">Chance</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="29"/>
         <source>Nem-Nem</source>
-        <translation type="obsolete">Nem-Nem</translation>
+        <translation>Nem-Nem</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="29"/>
         <source>Plus</source>
-        <translation type="obsolete">Max</translation>
+        <translation>Max</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="29"/>
         <source>Moins</source>
-        <translation type="obsolete">Min</translation>
+        <translation>Min</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="30"/>
         <source>Total colonne</source>
-        <translation type="obsolete">Column total</translation>
+        <translation>Column total</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="30"/>
         <source>Total gÃ©nÃ©ral</source>
-        <translation type="obsolete">Grand total</translation>
+        <translation>Grand total</translation>
     </message>
     <message>
         <source>TOTAL COLONNE</source>
@@ -321,16 +235,19 @@
         <translation type="obsolete">GENERAL TOTAL</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="32"/>
         <source>Descendante</source>
-        <translation type="obsolete">Downwards</translation>
+        <translation>Downwards</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="32"/>
         <source>Montante</source>
-        <translation type="obsolete">Upwards</translation>
+        <translation>Upwards</translation>
     </message>
     <message>
+        <location filename="grillemodel.cpp" line="32"/>
         <source>Libre</source>
-        <translation type="obsolete">Free</translation>
+        <translation>Free</translation>
     </message>
     <message>
         <source>Obtenu par %1-%2-%3-%4-%5</source>
@@ -338,252 +255,161 @@
     </message>
 </context>
 <context>
-    <name>NNTools</name>
-    <message>
-        <location filename="nemnemtools.cpp" line="11"/>
-        <source>AS</source>
-        <translation type="unfinished">ACE</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="14"/>
-        <source>DEUX</source>
-        <translation type="unfinished">TWO</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="17"/>
-        <source>TROIS</source>
-        <translation type="unfinished">THREE</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="20"/>
-        <source>QUATRE</source>
-        <translation type="unfinished">FOUR</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="23"/>
-        <source>CINQ</source>
-        <translation type="unfinished">FIVE</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="26"/>
-        <source>SIX</source>
-        <translation type="unfinished">SIX</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="29"/>
-        <source>UNE PAIRE</source>
-        <translation type="unfinished">A PAIR</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="32"/>
-        <source>DEUX PAIRES</source>
-        <translation type="unfinished">TWO PAIRS</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="35"/>
-        <source>BRELAN</source>
-        <translation type="unfinished">THREE OF A KIND</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="38"/>
-        <source>CARRÃ</source>
-        <translation type="unfinished">FOUR OF A KIND</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="41"/>
-        <source>FULL</source>
-        <translation type="unfinished">FULL HOUSE</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="44"/>
-        <source>PETITE SUITE</source>
-        <translation type="unfinished">SMALL STRAIGHT</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="47"/>
-        <source>GRANDE SUITE</source>
-        <translation type="unfinished">LARGE STRAIGHT</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="50"/>
-        <source>MOINS</source>
-        <translation type="unfinished">MIN</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="53"/>
-        <source>PLUS</source>
-        <translation type="unfinished">MAX</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="56"/>
-        <source>NEM-NEM</source>
-        <translation type="unfinished">NEM-NEM</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="59"/>
-        <source>(NumÃ©ro de ligne erronÃ©)</source>
-        <translation type="unfinished">(Bad row number)</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="69"/>
-        <source>DESCENDANTE</source>
-        <translation type="unfinished">DOWNWARDS</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="72"/>
-        <source>MONTANTE</source>
-        <translation type="unfinished">UPWARDS</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="75"/>
-        <source>LIBRE</source>
-        <translation type="unfinished">FREE</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="78"/>
-        <source>UN COUP</source>
-        <translation type="unfinished">ONE SHOT</translation>
-    </message>
-    <message>
-        <location filename="nemnemtools.cpp" line="81"/>
-        <source>(NumÃ©ro de colonne erronÃ©)</source>
-        <translation type="unfinished">(Bad column number)</translation>
-    </message>
-</context>
-<context>
     <name>NemNemTools</name>
     <message>
+        <location filename="nemnemtools.cpp" line="10"/>
         <source>AS</source>
-        <translation type="obsolete">ACE</translation>
+        <translation>ACE</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="13"/>
         <source>DEUX</source>
-        <translation type="obsolete">TWO</translation>
+        <translation>TWO</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="16"/>
         <source>TROIS</source>
-        <translation type="obsolete">THREE</translation>
+        <translation>THREE</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="19"/>
         <source>QUATRE</source>
-        <translation type="obsolete">FOUR</translation>
+        <translation>FOUR</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="22"/>
         <source>CINQ</source>
-        <translation type="obsolete">FIVE</translation>
+        <translation>FIVE</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="25"/>
         <source>SIX</source>
-        <translation type="obsolete">SIX</translation>
+        <translation>SIX</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="28"/>
         <source>UNE PAIRE</source>
-        <translation type="obsolete">A PAIR</translation>
+        <translation>A PAIR</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="31"/>
         <source>DEUX PAIRES</source>
-        <translation type="obsolete">TWO PAIRS</translation>
+        <translation>TWO PAIRS</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="34"/>
         <source>BRELAN</source>
-        <translation type="obsolete">THREE OF A KIND</translation>
+        <translation>THREE OF A KIND</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="37"/>
         <source>CARRÃ</source>
-        <translation type="obsolete">FOUR OF A KIND</translation>
+        <translation>FOUR OF A KIND</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="40"/>
         <source>FULL</source>
-        <translation type="obsolete">FULL HOUSE</translation>
+        <translation>FULL HOUSE</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="43"/>
         <source>PETITE SUITE</source>
-        <translation type="obsolete">SMALL STRAIGHT</translation>
+        <translation>SMALL STRAIGHT</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="46"/>
         <source>GRANDE SUITE</source>
-        <translation type="obsolete">LARGE STRAIGHT</translation>
+        <translation>LARGE STRAIGHT</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="77"/>
         <source>UN COUP</source>
-        <translation type="obsolete">ONE SHOT</translation>
+        <translation>ONE SHOT</translation>
     </message>
     <message>
         <source>CHANCE</source>
         <translation type="obsolete">CHANCE</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="55"/>
         <source>NEM-NEM</source>
-        <translation type="obsolete">NEM-NEM</translation>
+        <translation>NEM-NEM</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="58"/>
         <source>(NumÃ©ro de ligne erronÃ©)</source>
-        <translation type="obsolete">(Bad row number)</translation>
+        <translation>(Bad row number)</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="80"/>
         <source>(NumÃ©ro de colonne erronÃ©)</source>
-        <translation type="obsolete">(Bad column number)</translation>
+        <translation>(Bad column number)</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="68"/>
         <source>DESCENDANTE</source>
-        <translation type="obsolete">DOWNWARDS</translation>
+        <translation>DOWNWARDS</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="49"/>
         <source>MOINS</source>
-        <translation type="obsolete">MIN</translation>
+        <translation>MIN</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="52"/>
         <source>PLUS</source>
-        <translation type="obsolete">MAX</translation>
+        <translation>MAX</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="71"/>
         <source>MONTANTE</source>
-        <translation type="obsolete">UPWARDS</translation>
+        <translation>UPWARDS</translation>
     </message>
     <message>
+        <location filename="nemnemtools.cpp" line="74"/>
         <source>LIBRE</source>
-        <translation type="obsolete">FREE</translation>
+        <translation>FREE</translation>
     </message>
 </context>
 <context>
     <name>NemNemWindow</name>
     <message>
-        <location filename="nemnemwindow.cpp" line="203"/>
+        <location filename="nemnemwindow.cpp" line="266"/>
         <source>Une partie de Nem-Nem ?</source>
         <translation>Wanna play Nem-Nem ?</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="102"/>
+        <location filename="nemnemwindow.cpp" line="146"/>
         <source>Cliquez ici pour changer la couleur du tapis</source>
         <translation>Click here to change mat color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="104"/>
+        <location filename="nemnemwindow.cpp" line="148"/>
         <source>Cliquez ici pour changer la couleur du bord de la piste</source>
         <translation>Click here to change border color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="106"/>
+        <location filename="nemnemwindow.cpp" line="150"/>
         <source>Cliquez ici pour changer la couleur des dÃ©s</source>
         <translation>Click here to change dice color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="108"/>
+        <location filename="nemnemwindow.cpp" line="152"/>
         <source>Cliquez ici pour changer la couleur des dÃ©s sÃ©lectionnÃ©s</source>
         <translation>Click here to change selected dice color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="110"/>
+        <location filename="nemnemwindow.cpp" line="154"/>
         <source>Cliquez ici pour changer la couleur des points des dÃ©s</source>
         <translation>Click here to change pips color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="112"/>
+        <location filename="nemnemwindow.cpp" line="156"/>
         <source>Cliquez ici pour changer votre couleur</source>
         <translation>Click here to change your color</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="114"/>
+        <location filename="nemnemwindow.cpp" line="158"/>
         <source>Cliquez ici pour changer la couleur attribuÃ©e au Robot</source>
         <translation>Click here to change Robot&apos;s color</translation>
     </message>
@@ -596,34 +422,34 @@
         <translation type="obsolete">Nem-Nem</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="611"/>
+        <location filename="nemnemwindow.cpp" line="633"/>
         <source>Fin de partie...</source>
         <translation>End of the game...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="615"/>
+        <location filename="nemnemwindow.cpp" line="637"/>
         <source>FÃ©licitations, vous avez gagnÃ© par %1 points Ã  %2 !</source>
         <translation>Greetings, you won %1 points vs %2 !</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="621"/>
+        <location filename="nemnemwindow.cpp" line="643"/>
         <source>J&apos;ai gagnÃ© par %1 points Ã  %2 !</source>
         <translation>I won with %1 points vs %2 !</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="626"/>
+        <location filename="nemnemwindow.cpp" line="648"/>
         <source>Nous sommes ex-aequo avec %1 points chacun !</source>
         <translation>We both won with %1 points !</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="777"/>
-        <location filename="nemnemwindow.cpp" line="844"/>
+        <location filename="nemnemwindow.cpp" line="850"/>
+        <location filename="nemnemwindow.cpp" line="917"/>
         <source>PointsDe</source>
         <translation>DiePips</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="796"/>
-        <location filename="nemnemwindow.cpp" line="864"/>
+        <location filename="nemnemwindow.cpp" line="869"/>
+        <location filename="nemnemwindow.cpp" line="937"/>
         <source>MeilleursScores</source>
         <translation>BestScores</translation>
     </message>
@@ -646,270 +472,261 @@ by Nem-Nem</translation>
     <message>
         <location filename="nemnemwindow.ui" line="112"/>
         <location filename="nemnemwindow.ui" line="269"/>
-        <location filename="nemnemwindow.cpp" line="347"/>
-        <location filename="nemnemwindow.cpp" line="779"/>
-        <location filename="nemnemwindow.cpp" line="846"/>
-        <location filename="nemnemwindow.h" line="75"/>
+        <location filename="nemnemwindow.cpp" line="26"/>
+        <location filename="nemnemwindow.cpp" line="406"/>
+        <location filename="nemnemwindow.cpp" line="852"/>
+        <location filename="nemnemwindow.cpp" line="919"/>
+        <location filename="nemnemwindow.h" line="89"/>
         <source>Robot</source>
         <translation>Robot</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="725"/>
+        <location filename="nemnemwindow.cpp" line="800"/>
         <source>Enregistrer la partie</source>
         <translation>Save the game</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="757"/>
-        <location filename="nemnemwindow.cpp" line="824"/>
+        <location filename="nemnemwindow.cpp" line="830"/>
+        <location filename="nemnemwindow.cpp" line="897"/>
         <source>PositionF</source>
         <translation>PositionF</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="758"/>
-        <location filename="nemnemwindow.cpp" line="825"/>
+        <location filename="nemnemwindow.cpp" line="831"/>
+        <location filename="nemnemwindow.cpp" line="898"/>
         <source>TailleF</source>
         <translation>TailleF</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="763"/>
-        <location filename="nemnemwindow.cpp" line="830"/>
+        <location filename="nemnemwindow.cpp" line="836"/>
+        <location filename="nemnemwindow.cpp" line="903"/>
         <source>Piste</source>
         <translation>Gameboard</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="773"/>
-        <location filename="nemnemwindow.cpp" line="840"/>
+        <location filename="nemnemwindow.cpp" line="846"/>
+        <location filename="nemnemwindow.cpp" line="913"/>
         <source>BordPiste</source>
         <translation>Border</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="774"/>
-        <location filename="nemnemwindow.cpp" line="841"/>
+        <location filename="nemnemwindow.cpp" line="847"/>
+        <location filename="nemnemwindow.cpp" line="914"/>
         <source>TapisPiste</source>
         <translation>Mat</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="775"/>
-        <location filename="nemnemwindow.cpp" line="842"/>
+        <location filename="nemnemwindow.cpp" line="848"/>
+        <location filename="nemnemwindow.cpp" line="915"/>
         <source>FaceDe</source>
         <translation>DieFace</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="776"/>
-        <location filename="nemnemwindow.cpp" line="843"/>
+        <location filename="nemnemwindow.cpp" line="849"/>
+        <location filename="nemnemwindow.cpp" line="916"/>
         <source>FaceDeSelection</source>
         <translation>SelectedDieFace</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="790"/>
-        <location filename="nemnemwindow.cpp" line="857"/>
+        <location filename="nemnemwindow.cpp" line="863"/>
+        <location filename="nemnemwindow.cpp" line="930"/>
         <source>Simple</source>
         <translation>Simple</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="768"/>
-        <location filename="nemnemwindow.cpp" line="835"/>
+        <location filename="nemnemwindow.cpp" line="841"/>
+        <location filename="nemnemwindow.cpp" line="908"/>
         <source>Duree</source>
         <translation>Time</translation>
     </message>
     <message>
+        <location filename="nemnemwindow.cpp" line="27"/>
         <source>Humain</source>
-        <translation type="obsolete">Human</translation>
+        <translation>Human</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="94"/>
+        <location filename="nemnemwindow.cpp" line="138"/>
         <source>Date/Heure</source>
         <translation>Date/Time</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="204"/>
+        <location filename="nemnemwindow.cpp" line="267"/>
         <source>PrÃ©fÃ©rences</source>
         <translation>Preferences</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="207"/>
+        <location filename="nemnemwindow.cpp" line="270"/>
         <source>Historique</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="213"/>
+        <location filename="nemnemwindow.cpp" line="276"/>
         <source>Version %1</source>
         <translation>Version %1</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="444"/>
+        <location filename="nemnemwindow.cpp" line="503"/>
         <source>(%1 ms)</source>
         <translation>(%1 msec)</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="454"/>
+        <location filename="nemnemwindow.cpp" line="513"/>
         <source>Cette action va effacer la partie en cours et en commencer une nouvelle.</source>
         <translation>You&apos;re about clear current game and begin a new one.</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="518"/>
-        <source>Tour nÂ°%1 - lancer nÂ°%2 de %3 : %4-%5-%6-%7-%8 (total %9)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemwindow.cpp" line="637"/>
+        <location filename="nemnemwindow.cpp" line="659"/>
         <source>BRAVO !!!</source>
         <translation>GREETINGS !!!</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="665"/>
+        <location filename="nemnemwindow.cpp" line="687"/>
         <source>Cette action va effacer la liste des scores enregistrÃ©s.</source>
         <translation>You&apos;re about to clear all registered scores.</translation>
     </message>
     <message>
+        <location filename="nemnemwindow.cpp" line="767"/>
         <source>Lancer nÂ°%1 de %2 : %3-%4-%5-%6-%7 (total %8)</source>
-        <translation type="obsolete">Session #%1 of %2 : %3-%4-%5-%6-%7 (total %8)</translation>
+        <translation>Session #%1 of %2 : %3-%4-%5-%6-%7 (total %8)</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="760"/>
-        <location filename="nemnemwindow.cpp" line="822"/>
+        <location filename="nemnemwindow.cpp" line="833"/>
+        <location filename="nemnemwindow.cpp" line="895"/>
         <source>Adversaire</source>
         <translation>Opponent</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="764"/>
-        <location filename="nemnemwindow.cpp" line="831"/>
+        <location filename="nemnemwindow.cpp" line="837"/>
+        <location filename="nemnemwindow.cpp" line="904"/>
         <source>PerspectiveX</source>
         <translation>PerspectiveX</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="765"/>
-        <location filename="nemnemwindow.cpp" line="832"/>
+        <location filename="nemnemwindow.cpp" line="838"/>
+        <location filename="nemnemwindow.cpp" line="905"/>
         <source>PerspectiveY</source>
         <translation>PerspectiveY</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="766"/>
-        <location filename="nemnemwindow.cpp" line="833"/>
+        <location filename="nemnemwindow.cpp" line="839"/>
+        <location filename="nemnemwindow.cpp" line="906"/>
         <source>PerspectiveZ</source>
         <translation>PerspectiveZ</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="769"/>
-        <location filename="nemnemwindow.cpp" line="836"/>
+        <location filename="nemnemwindow.cpp" line="842"/>
+        <location filename="nemnemwindow.cpp" line="909"/>
         <source>AnimationLancersRobot</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="783"/>
-        <location filename="nemnemwindow.cpp" line="850"/>
+        <location filename="nemnemwindow.cpp" line="856"/>
+        <location filename="nemnemwindow.cpp" line="923"/>
         <source>SonsActifs</source>
         <translation>ActiveSounds</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="794"/>
-        <location filename="nemnemwindow.cpp" line="861"/>
+        <location filename="nemnemwindow.cpp" line="867"/>
+        <location filename="nemnemwindow.cpp" line="934"/>
         <source>Recharger</source>
         <translation>Reload</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="795"/>
-        <location filename="nemnemwindow.cpp" line="862"/>
+        <location filename="nemnemwindow.cpp" line="868"/>
+        <location filename="nemnemwindow.cpp" line="935"/>
         <source>Suggerer</source>
         <translation>Suggest</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="797"/>
-        <location filename="nemnemwindow.cpp" line="863"/>
+        <location filename="nemnemwindow.cpp" line="870"/>
+        <location filename="nemnemwindow.cpp" line="936"/>
         <source>TracesRobot</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="798"/>
-        <location filename="nemnemwindow.cpp" line="865"/>
+        <location filename="nemnemwindow.cpp" line="871"/>
+        <location filename="nemnemwindow.cpp" line="938"/>
         <source>MessagesPiste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="802"/>
-        <location filename="nemnemwindow.cpp" line="871"/>
+        <location filename="nemnemwindow.cpp" line="875"/>
+        <location filename="nemnemwindow.cpp" line="944"/>
         <source>Scores</source>
         <translation>Scores</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="807"/>
-        <location filename="nemnemwindow.cpp" line="877"/>
+        <location filename="nemnemwindow.cpp" line="880"/>
+        <location filename="nemnemwindow.cpp" line="950"/>
         <source>ScoreGagnant</source>
         <translation>WinnerScore</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="809"/>
-        <location filename="nemnemwindow.cpp" line="879"/>
+        <location filename="nemnemwindow.cpp" line="882"/>
+        <location filename="nemnemwindow.cpp" line="952"/>
         <source>ScorePerdant</source>
         <translation>LooserScore</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="810"/>
-        <location filename="nemnemwindow.cpp" line="880"/>
+        <location filename="nemnemwindow.cpp" line="883"/>
+        <location filename="nemnemwindow.cpp" line="953"/>
         <source>GagnantEstRobot</source>
         <translation>WinnerIsRobot</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="910"/>
+        <location filename="nemnemwindow.cpp" line="972"/>
         <source>Je ne peux pas Ã©crire dans le fichier %1</source>
         <translation>I can&apos;t write in file %1</translation>
-    </message>
-    <message>
-        <location filename="nemnemwindow.cpp" line="928"/>
-        <source>Je ne reconnais pas le fichier
-%1
-comme une partie de Nem-Nem !</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Je ne peux pas lire le fichier %1</source>
         <translation type="obsolete">I can&apos;t read file %1</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="492"/>
+        <location filename="nemnemwindow.cpp" line="747"/>
         <source>%1 a jouÃ© ligne %2, colonne %3</source>
         <translation>%1 played row %2 column %3</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="744"/>
+        <location filename="nemnemwindow.cpp" line="819"/>
         <source>Charger une partie</source>
         <translation>Load a game</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="756"/>
-        <location filename="nemnemwindow.cpp" line="820"/>
+        <location filename="nemnemwindow.cpp" line="829"/>
+        <location filename="nemnemwindow.cpp" line="893"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="759"/>
-        <location filename="nemnemwindow.cpp" line="778"/>
-        <location filename="nemnemwindow.cpp" line="821"/>
-        <location filename="nemnemwindow.cpp" line="845"/>
+        <location filename="nemnemwindow.cpp" line="832"/>
+        <location filename="nemnemwindow.cpp" line="851"/>
+        <location filename="nemnemwindow.cpp" line="894"/>
+        <location filename="nemnemwindow.cpp" line="918"/>
         <source>Joueur</source>
         <translation>Player</translation>
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="307"/>
-        <location filename="nemnemwindow.cpp" line="772"/>
-        <location filename="nemnemwindow.cpp" line="839"/>
+        <location filename="nemnemwindow.cpp" line="845"/>
+        <location filename="nemnemwindow.cpp" line="912"/>
         <source>Couleurs</source>
         <translation>Colors</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="786"/>
-        <location filename="nemnemwindow.cpp" line="853"/>
+        <location filename="nemnemwindow.cpp" line="859"/>
+        <location filename="nemnemwindow.cpp" line="926"/>
         <source>Styles</source>
         <translation>Styles</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2166"/>
+        <location filename="nemnemwindow.ui" line="2171"/>
         <source>Affichage</source>
         <translation>Display</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.cpp" line="793"/>
-        <location filename="nemnemwindow.cpp" line="860"/>
+        <location filename="nemnemwindow.cpp" line="866"/>
+        <location filename="nemnemwindow.cpp" line="933"/>
         <source>Divers</source>
         <translation>Divers</translation>
     </message>
@@ -1000,8 +817,8 @@ comme une partie de Nem-Nem !</source>
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="734"/>
-        <location filename="nemnemwindow.cpp" line="782"/>
-        <location filename="nemnemwindow.cpp" line="849"/>
+        <location filename="nemnemwindow.cpp" line="855"/>
+        <location filename="nemnemwindow.cpp" line="922"/>
         <source>Sons</source>
         <translation>Sounds</translation>
     </message>
@@ -1026,34 +843,24 @@ comme une partie de Nem-Nem !</source>
         <translation>Game preferences</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1271"/>
+        <location filename="nemnemwindow.ui" line="1278"/>
         <source>Tracer la tactique du Robot</source>
         <translation>Log Robot plays</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1278"/>
+        <location filename="nemnemwindow.ui" line="1285"/>
         <source>Messages sur la piste</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1470"/>
+        <location filename="nemnemwindow.ui" line="1477"/>
         <source>Mémoriser les</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1515"/>
+        <location filename="nemnemwindow.ui" line="1522"/>
         <source>meilleurs scores</source>
         <translation>best scores</translation>
-    </message>
-    <message>
-        <location filename="nemnemwindow.ui" line="2393"/>
-        <source>Rejouer une partie...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2398"/>
-        <source>Démo</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="917"/>
@@ -1072,8 +879,8 @@ comme une partie de Nem-Nem !</source>
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="1049"/>
-        <location filename="nemnemwindow.cpp" line="767"/>
-        <location filename="nemnemwindow.cpp" line="834"/>
+        <location filename="nemnemwindow.cpp" line="840"/>
+        <location filename="nemnemwindow.cpp" line="907"/>
         <source>Zoom</source>
         <translation>Zoom</translation>
     </message>
@@ -1083,19 +890,19 @@ comme une partie de Nem-Nem !</source>
         <translation>Load default values</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1321"/>
-        <location filename="nemnemwindow.cpp" line="805"/>
-        <location filename="nemnemwindow.cpp" line="875"/>
+        <location filename="nemnemwindow.ui" line="1328"/>
+        <location filename="nemnemwindow.cpp" line="878"/>
+        <location filename="nemnemwindow.cpp" line="948"/>
         <source>Date</source>
         <translation>Date</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1527"/>
+        <location filename="nemnemwindow.ui" line="1534"/>
         <source>Effacer les scores</source>
         <translation>Clear scores</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1556"/>
+        <location filename="nemnemwindow.ui" line="1563"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1139,12 +946,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1703"/>
+        <location filename="nemnemwindow.ui" line="1710"/>
         <source>Informations diverses</source>
         <translation>Various informations</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1709"/>
+        <location filename="nemnemwindow.ui" line="1716"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1211,12 +1018,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1782"/>
+        <location filename="nemnemwindow.ui" line="1789"/>
         <source>Licence</source>
         <translation>License</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1960"/>
+        <location filename="nemnemwindow.ui" line="1967"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1336,39 +1143,39 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2337"/>
+        <location filename="nemnemwindow.ui" line="2342"/>
         <source>Traces</source>
         <translation>Logs</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2340"/>
+        <location filename="nemnemwindow.ui" line="2345"/>
         <source>Suivre le déroulement de la partie</source>
         <translation>Log the game</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2352"/>
+        <location filename="nemnemwindow.ui" line="2357"/>
         <source>Relancer les dés sélectionnés</source>
         <translation>Roll selected dice</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2364"/>
+        <location filename="nemnemwindow.ui" line="2369"/>
         <source>Tout relancer</source>
         <translation>Roll all dice</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2372"/>
+        <location filename="nemnemwindow.ui" line="2377"/>
         <source>Configurer la piste...</source>
         <translation>Configure gameboard...</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2316"/>
+        <location filename="nemnemwindow.ui" line="2321"/>
         <source>À propos de Nem-Nem...</source>
         <translation>About Nem-Nem...</translation>
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="662"/>
-        <location filename="nemnemwindow.cpp" line="788"/>
-        <location filename="nemnemwindow.cpp" line="855"/>
+        <location filename="nemnemwindow.cpp" line="861"/>
+        <location filename="nemnemwindow.cpp" line="928"/>
         <source>Chiffres</source>
         <translation>Numbers</translation>
     </message>
@@ -1379,8 +1186,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="684"/>
-        <location filename="nemnemwindow.cpp" line="789"/>
-        <location filename="nemnemwindow.cpp" line="856"/>
+        <location filename="nemnemwindow.cpp" line="862"/>
+        <location filename="nemnemwindow.cpp" line="929"/>
         <source>Logo</source>
         <translation>Logo</translation>
     </message>
@@ -1396,8 +1203,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="nemnemwindow.ui" line="637"/>
-        <location filename="nemnemwindow.cpp" line="787"/>
-        <location filename="nemnemwindow.cpp" line="854"/>
+        <location filename="nemnemwindow.cpp" line="860"/>
+        <location filename="nemnemwindow.cpp" line="927"/>
         <source>Classique</source>
         <translation>Classic</translation>
     </message>
@@ -1421,17 +1228,17 @@ p, li { white-space: pre-wrap; }
         <translation>Automatically load last game</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1196"/>
+        <location filename="nemnemwindow.ui" line="1203"/>
         <source>Le Robot joue avec les mêmes lancers</source>
         <translation>Robot plays with same sessions</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1226"/>
+        <location filename="nemnemwindow.ui" line="1233"/>
         <source>Le Robot sélectionne les dés à relancer</source>
         <translation>Robot selectig dice to roll</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1229"/>
+        <location filename="nemnemwindow.ui" line="1236"/>
         <source>Le Robot donne des conseils</source>
         <translation>Robot make suggestions</translation>
     </message>
@@ -1441,18 +1248,18 @@ p, li { white-space: pre-wrap; }
         <translation>Animate dice played by Robot</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1550"/>
+        <location filename="nemnemwindow.ui" line="1557"/>
         <source>À propos de Nem-Nem</source>
         <translation>About Nem-Nem</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1628"/>
-        <location filename="nemnemwindow.ui" line="2286"/>
+        <location filename="nemnemwindow.ui" line="1635"/>
+        <location filename="nemnemwindow.ui" line="2291"/>
         <source>Aide</source>
         <translation>Help</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1634"/>
+        <location filename="nemnemwindow.ui" line="1641"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1515,7 +1322,7 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="1788"/>
+        <location filename="nemnemwindow.ui" line="1795"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1675,177 +1482,170 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2121"/>
+        <location filename="nemnemwindow.ui" line="2128"/>
         <source>Barre d&apos;outils</source>
         <translation>Toolbar</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2185"/>
+        <location filename="nemnemwindow.ui" line="2190"/>
         <source>Dés</source>
         <translation>Dice</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2289"/>
+        <location filename="nemnemwindow.ui" line="2294"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2301"/>
+        <location filename="nemnemwindow.ui" line="2306"/>
         <source>À propos de Qt...</source>
         <translation>About Qt...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2144"/>
+        <location filename="nemnemwindow.ui" line="2151"/>
         <source>Jeu</source>
         <translation>Game</translation>
     </message>
     <message utf8="true">
+        <location filename="nemnemwindow.ui" line="1175"/>
         <source>Mode démonstration</source>
-        <translation type="obsolete">Demonstration mode</translation>
+        <translation>Demonstration mode</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1326"/>
-        <location filename="nemnemwindow.cpp" line="94"/>
-        <location filename="nemnemwindow.cpp" line="806"/>
-        <location filename="nemnemwindow.cpp" line="876"/>
+        <location filename="nemnemwindow.ui" line="1333"/>
+        <location filename="nemnemwindow.cpp" line="138"/>
+        <location filename="nemnemwindow.cpp" line="879"/>
+        <location filename="nemnemwindow.cpp" line="949"/>
         <source>Gagnant</source>
         <translation>Winner</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1331"/>
-        <location filename="nemnemwindow.cpp" line="94"/>
+        <location filename="nemnemwindow.ui" line="1338"/>
+        <location filename="nemnemwindow.cpp" line="138"/>
         <source>Score du gagnant</source>
         <translation>Winner score</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1336"/>
-        <location filename="nemnemwindow.cpp" line="94"/>
-        <location filename="nemnemwindow.cpp" line="808"/>
-        <location filename="nemnemwindow.cpp" line="878"/>
+        <location filename="nemnemwindow.ui" line="1343"/>
+        <location filename="nemnemwindow.cpp" line="138"/>
+        <location filename="nemnemwindow.cpp" line="881"/>
+        <location filename="nemnemwindow.cpp" line="951"/>
         <source>Perdant</source>
         <translation>Looser</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1341"/>
-        <location filename="nemnemwindow.cpp" line="94"/>
+        <location filename="nemnemwindow.ui" line="1348"/>
+        <location filename="nemnemwindow.cpp" line="138"/>
         <source>Score du perdant</source>
         <translation>Looser score</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1364"/>
+        <location filename="nemnemwindow.ui" line="1371"/>
         <source>Moyennes des points</source>
         <translation>Points averages</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1372"/>
+        <location filename="nemnemwindow.ui" line="1379"/>
         <source>Humain :</source>
         <translation>Human :</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1397"/>
+        <location filename="nemnemwindow.ui" line="1404"/>
         <source>Moyenne de points du joueur humain</source>
         <translation>Average for human</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1410"/>
+        <location filename="nemnemwindow.ui" line="1417"/>
         <source>Robot :</source>
         <translation>Robot :</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1435"/>
+        <location filename="nemnemwindow.ui" line="1442"/>
         <source>Moyenne de points du Robot</source>
         <translation>Robot average</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1524"/>
+        <location filename="nemnemwindow.ui" line="1531"/>
         <source>Effacer le liste des meilleurs scores</source>
         <translation>Clear best scores</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="1954"/>
+        <location filename="nemnemwindow.ui" line="1961"/>
         <source>Versions</source>
         <translation>Versions</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2109"/>
+        <location filename="nemnemwindow.ui" line="2116"/>
         <source>Effacer</source>
         <translation>Clear</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2157"/>
+        <location filename="nemnemwindow.ui" line="2162"/>
         <source>Édition</source>
         <translation>Edition</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2176"/>
-        <location filename="nemnemwindow.cpp" line="206"/>
+        <location filename="nemnemwindow.ui" line="2181"/>
+        <location filename="nemnemwindow.cpp" line="269"/>
         <source>Documentation</source>
         <translation>Documentation</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2205"/>
+        <location filename="nemnemwindow.ui" line="2210"/>
         <source>&amp;Quitter</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2208"/>
+        <location filename="nemnemwindow.ui" line="2213"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2220"/>
+        <location filename="nemnemwindow.ui" line="2225"/>
         <source>Nouvelle partie...</source>
         <translation>New game...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2229"/>
+        <location filename="nemnemwindow.ui" line="2234"/>
         <source>Charger une partie...</source>
         <translation>Load a game...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2238"/>
+        <location filename="nemnemwindow.ui" line="2243"/>
         <source>Enregistrer la partie...</source>
         <translation>Save the game...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2250"/>
+        <location filename="nemnemwindow.ui" line="2255"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message utf8="true">
-        <location filename="nemnemwindow.ui" line="2259"/>
+        <location filename="nemnemwindow.ui" line="2264"/>
         <source>Préférences...</source>
         <translation>Preferences...</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2274"/>
-        <location filename="nemnemwindow.cpp" line="205"/>
+        <location filename="nemnemwindow.ui" line="2279"/>
+        <location filename="nemnemwindow.cpp" line="268"/>
         <source>Meilleurs scores</source>
         <translation>Best scores</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2381"/>
+        <location filename="nemnemwindow.ui" line="2386"/>
         <source>Page principale</source>
         <translation>Main page</translation>
     </message>
     <message>
-        <location filename="nemnemwindow.ui" line="2384"/>
+        <location filename="nemnemwindow.ui" line="2389"/>
         <source>Esc</source>
         <translation>Esc</translation>
     </message>
 </context>
 <context>
-    <name>Player</name>
-    <message>
-        <location filename="player.cpp" line="16"/>
-        <source>Robot</source>
-        <translation type="unfinished">Robot</translation>
-    </message>
-</context>
-<context>
     <name>QObject</name>
     <message>
-        <location filename="cellule.cpp" line="43"/>
+        <location filename="cellule.cpp" line="11"/>
         <source>Tour nÂ°%1
 DÃ©s : %2-%3-%4-%5-%6</source>
         <translation>Round #%1
@@ -1890,36 +1690,6 @@ Dice : %2-%3-%4-%5-%6</translation>
     <message>
         <source>Suppression de %1</source>
         <translation type="obsolete">Deleting %1</translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="25"/>
-        <source>** Message invalide **</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="27"/>
-        <source>Tour nÂ°%1 : le joueur %2 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="35"/>
-        <source>rejoue son tour nÂ°%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="40"/>
-        <source>a jouÃ© dans la case ligne %1 colonne %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="49"/>
-        <source>a lancÃ© tous les dÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="nemnemevent.cpp" line="54"/>
-        <source>a lancÃ© les dÃ©s nÂ° %1</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

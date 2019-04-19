@@ -3,7 +3,7 @@
 
 
 //------------------------------------
-QString  NNTools::rowName(int row)
+QString  NemNemTools::rowName(int row)
 {
 	switch (row)
 	{
@@ -61,7 +61,7 @@ QString  NNTools::rowName(int row)
 	}
 }
 //------------------------------------------
-QString  NNTools::columnName(int column)
+QString  NemNemTools::columnName(int column)
 {
 	switch (column)
 	{
@@ -83,7 +83,7 @@ QString  NNTools::columnName(int column)
 	}
 }
 //--------------------------------------------------------------------
-QString NNTools::format (QList<int> diceValues, QString separator)
+QString NemNemTools::format (QList<int> diceValues, QString separator)
 {
 	QString result;
 	QString parameter;
@@ -101,24 +101,16 @@ QString NNTools::format (QList<int> diceValues, QString separator)
 	return result;
 }
 //--------------------------------------------------
-QString NNTools::listToString(QList<int> liste)
+QString NemNemTools::listToString(QList<int> liste)
 {
-	QString ret ("");
-
-	if (liste.count () == 5)
-	{
-
-		ret = QString("%1%2%3%4%5").arg(liste[0])
-				.arg(liste[1])
-				.arg(liste[2])
-				.arg(liste[3])
-				.arg(liste[4]);
-	}
-
-	return ret;
+	return QString("%1%2%3%4%5").arg(liste[0])
+			.arg(liste[1])
+			.arg(liste[2])
+			.arg(liste[3])
+			.arg(liste[4]);
 }
 //---------------------------------------------------
-QList<int> NNTools::stringToList(QString chaine)
+QList<int> NemNemTools::stringToList(QString chaine)
 {
 	QList<int> ret;
 
@@ -127,16 +119,15 @@ QList<int> NNTools::stringToList(QString chaine)
 
 	return ret;
 }
-//------------------------------------------------------
-bool NNTools::isANemNemSaveFormat(QString fileName)
+//------------------------------------------------
+bool NemNemTools::isANemNemSave(QString fileName)
 {
 	QSettings settings (fileName, QSettings::IniFormat);
-	settings.sync ();
+	settings.beginGroup("type");
+	bool test = settings.value("nemnemsave", false).toBool();
+	settings.endGroup();
 
-	settings.beginGroup ("general");
-	QString test = settings.value ("type", "").toString ();
-	settings.endGroup ();
+	return test;
 
-	return test == "nemnemsave";
 }
 //---------------------

@@ -15,6 +15,10 @@ Mat::Mat(QRectF rect, qreal border, QColor color, QColor borderColor)
 	tempo->setBlurRadius(50.0);
 	setGraphicsEffect(tempo);
 
+	setBoundingRegionGranularity(1.0);
+
+	// setCacheMode pose problème : affichage incomplet
+//	setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 	m_textHeight = 0.0;
 }
 //--------------------------------------
@@ -40,8 +44,6 @@ void Mat::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
 //---------------------------------
 void Mat::redraw(QPainter* painter)
 {
-	#define MAT_DARKER_LIGHTER 130	// variations de couleur du tapis
-
 	painter->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform, true);
 
 	QRectF drawRect(m_rect.adjusted(correction() * 1.5, correction() * 1.5, -correction() * 1.5, -correction() * 1.5));

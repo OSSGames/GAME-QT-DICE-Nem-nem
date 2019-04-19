@@ -4,6 +4,7 @@
 #include <QTextCodec>
 #include <QLocale>
 #include <QSplashScreen>
+#include <QFont>
 #include <ctime>
 #include <QObject>
 #include <QString>
@@ -16,7 +17,7 @@
 #include "nemnemwindow.h"
 
 
-#define VERSION ("2011.05.3b")
+#define VERSION ("2011.05.1b")
 
 QString fromPath (QDir::toNativeSeparators(":/sounds/"));
 QString toPath (Default::nemNemSoundPath());
@@ -31,7 +32,7 @@ void createTempFiles()
 		QString fileFromName (fromPath + name);
 		QString fileToName (toPath + name);
 
-		QFile::copy (fileFromName, fileToName);
+		QFile::copy(fileFromName, fileToName);
 	}
 }
 //---------------------
@@ -39,7 +40,7 @@ void deleteTempFiles()
 {
 	foreach (QString name, filesToCopy)
 	{
-		QFile::remove (toPath + name);
+		QFile::remove(toPath + name);
 	}
 }
 //------------------------------
@@ -55,20 +56,20 @@ int main(int argc, char *argv[])
 	QString de(SystemTools::DEName());
 
 	if (
-		de.contains ("xfce", Qt::CaseInsensitive)
-		|| de.contains ("default", Qt::CaseInsensitive)
-		|| de.contains ("lxde", Qt::CaseInsensitive)
+		de.contains("xfce", Qt::CaseInsensitive)
+		|| de.contains("default", Qt::CaseInsensitive)
+		|| de.contains("lxde", Qt::CaseInsensitive)
 		)
 	{
-		if (QStyleFactory::keys ().contains ("cleanlooks", Qt::CaseInsensitive))
+		if (QStyleFactory::keys ().contains("cleanlooks", Qt::CaseInsensitive))
 		{
-			QApplication::setStyle ("Cleanlooks");
+			QApplication::setStyle("Cleanlooks");
 		}
 		else
 		{
 			if (!QStyleFactory::keys ().isEmpty())
 			{
-				QApplication::setStyle (QStyleFactory::keys ().first());
+				QApplication::setStyle(QStyleFactory::keys ().first());
 			}
 		}
 	}
@@ -77,26 +78,25 @@ int main(int argc, char *argv[])
 #endif
 
 
-	QApplication app (argc, argv);
+	QApplication app(argc, argv);
+	app.setOrganizationName("PapaJaac");
+	app.setApplicationName("Nem-Nem");
+	app.setApplicationVersion(VERSION);
 
-	app.setOrganizationName ("PapaJaac");
-	app.setApplicationName ("Nem-Nem");
-	app.setApplicationVersion (VERSION);
-
-	QSplashScreen splash (QPixmap (":/images/nemnemsplash.png"));
+	QSplashScreen splash(QPixmap(":/images/nemnemsplash.png"));
 	splash.show();
 
-	QTextCodec::setCodecForTr (QTextCodec::codecForName("UTF-8"));
-	QTextCodec::setCodecForLocale (QTextCodec::codecForName("UTF-8"));
-	QTextCodec::setCodecForCStrings (QTextCodec::codecForName("UTF-8"));
+	QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
-	splash.showMessage (QObject::tr("Version %1").arg(app.applicationVersion()),
+	splash.showMessage(QObject::tr("Version %1").arg(app.applicationVersion()),
 					   Qt::AlignCenter | Qt::AlignBottom,
 					   Qt::white);
 
-	createTempFiles ();
+	createTempFiles();
 
-	qsrand(time (NULL));	// semence aléatoire
+	qsrand(time(NULL));	// semence aléatoire
 
 	// pour avoir les boutons des boîtes de dialogue dans la langue locale (fr par défaut)
 	QTranslator qtTranslator;
@@ -119,10 +119,10 @@ int main(int argc, char *argv[])
 	w->show();
 	splash.finish(w);
 
-	int ret = app.exec ();
+	int ret = app.exec();
 	delete w;
 
-	deleteTempFiles ();
+	deleteTempFiles();
 
 	return ret;
 }

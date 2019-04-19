@@ -21,6 +21,8 @@ private:
 	QList<int> m_diceList;	// valeurs des dés en cours quand la cellule a été choisie
 	int m_value;				// valeur (somme des dés, ou autre)
 	int m_status;			// 0 = empty, 1 = good, 2 = bad
+	bool m_isAvailable;
+	bool m_isValid;
 	int m_order;
 
 public:
@@ -42,6 +44,10 @@ public:
 	int status () { return m_status; }
 	void setStatus (int status) { m_status = status; }
 
+	bool isAvailable () { return m_isAvailable; }
+	void setAvailable (bool available) { m_isAvailable = available; }
+
+	bool isValid() { return m_isValid; }
 
 	QString toolTip();
 

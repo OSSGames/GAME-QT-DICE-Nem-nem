@@ -1,21 +1,27 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#include <QDebug>
+#include <QTime>
+
+#define DARKER_LIGHTER					(200)
+#define LIGHTER_DARKER					(120)
+#define MAT_DARKER_LIGHTER				(130)
+
+#define TOTAL_ROWS_COLOR					(QColor(0xF6F6F6))
+
+#define ROBOT_LAST_PLAY_COLOR			(QColor(0x000080))
 
 #define SOUND_ROLLDICE					("rollDice.wav")
 #define SOUND_APPLAUSE					("applause.wav")
 #define SOUND_NEWGAME					("newGame.wav")
 #define SOUND_DRUMROLL					("drumRoll.wav")
 
-// types d'objets sur la piste
-#define	DIE_TYPE			(65537)	// les dés
-#define MAT_TYPE				(65538) // le tapis
+#define	DIE_TYPE			(65537)
+#define MAT_TYPE				(65538)
 
 #define HUMAN				(0)
 #define ROBOT				(1)
-
-#define TYPE_HUMAN			(0)
-#define TYPE_ROBOT			(1)
 
 #define CLASSIQUE			(0)
 #define CHIFFRES				(1)
@@ -32,6 +38,7 @@
 
 #define	FIRST_COLUMN		(DOWN)
 #define	LAST_COLUMN			(ONE_SHOT)
+
 
 #define AS					(0)
 #define DEUX					(1)
@@ -93,6 +100,10 @@
 #define M_LAST_VALUE			(SIX)
 #define M_FIRST_FIGURE		(M_UNE_PAIRE)
 #define M_LAST_FIGURE		(M_NEM_NEM)
+
+#define BORDERSIZE			(4.5)
+#define RAYON				(12)
+
 
 #define BONUS_LIMIT				(63)
 #define BONUS_POINTS				(35)

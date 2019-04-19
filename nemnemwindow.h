@@ -15,15 +15,17 @@
 
 #include "defines.h"
 
-#include "gridmodel.h"
+#include "grillemodel.h"
 #include "colorselectbutton.h"
 #include "systemtools.h"
-#include "grid.h"
+#include "grille.h"
 #include "automate.h"
 #include "gameboard.h"
 #include "score.h"
 #include "sound.h"
+#include "gameengine.h"
 #include "player.h"
+
 
 namespace Ui
 {
@@ -37,17 +39,19 @@ class NemNemWindow : public QMainWindow
 private:
 	Ui::NemNemWindow *ui;
 
+	Player* m_player[2];
 	QStatusBar* m_statusBar;
 	GameBoard* m_gameBoard;
 	GameBoard* m_demoGameBoard;
 	QGraphicsView* m_diceView;
 	QGraphicsView* m_demoView;
+	Automate* m_robotEngine;
+	Automate* m_humanEngine;
 
 	Scores m_scores;
 	void addScore(QDateTime date, QString winner, int winnerScore, QString loser, int loserScore, bool winnerIsRobot);
 	int m_bestScoresCount;
 
-	QStringList m_windowTitles;
 	ColorSelectButton* m_tapisColorSelect;
 	ColorSelectButton* m_bordColorSelect;
 	ColorSelectButton* m_normalColorSelect;
@@ -56,11 +60,21 @@ private:
 	ColorSelectButton* m_playerColorSelect;
 	ColorSelectButton* m_robotColorSelect;
 
-	Player* m_player[2];
+	QTableView *m_tableViewHuman;
+	QTableView *m_tableViewRobot;
+	Grille *m_humanGrille;
+	Grille *m_robotGrille;
+	GrilleModel *m_grilleModelHuman;
+	GrilleModel *m_grilleModelRobot;
+
 	int m_playersCount;
 	int m_currentPlayer;
-	int m_currentTurn;
-	int m_currentRoll;
+	int m_currentRollCount;
+	int m_maxCurrentRollCount;
+	QList<int> m_lastHumanRoll;
+	int m_lastHumanRollCount;
+
+	void newPlayer(int maxRollCount = 3);
 
 	void endOfTheGame();
 
@@ -77,15 +91,13 @@ private:
 	void loadGame(QString fileName, bool messageWhenError = false);
 	bool m_justLoaded;
 	QStringList m_messageList;
+	QStringList m_windowTitles;
 
 	Sound * m_sound;
 
-	bool m_modeDemo;
+	GameEngine* m_gameEngine;
 
-	bool isModeDemo () { return m_modeDemo; }
-	void setModeDemo (bool b) { m_modeDemo = b; m_currentPlayer = (b ? ROBOT : HUMAN); }
-
-public:
+	public:
 	NemNemWindow (QWidget *parent = 0);
 	~NemNemWindow();
 	void readSettings();
@@ -93,13 +105,12 @@ public:
 	void saveSettings();
 
 public slots:
+	void eventCellSuggested(int row, int column);
 	void eventCellSelected (int row, int column);
-	void eventNewRoll (int player, int turn, int roll, QList<int> diceList);
-	void onActionNew ();
+	void eventNewDiceValues (QList<int> diceList);
+	void newGame ();
 	void saveTheGame ();
-	bool openTheGame ();
-	void onActionReplay ();
-
+	void openTheGame ();
 	void messageAnalyze (QString msg) { message (msg, Qt::darkGreen); }
 	void messageSuggestion (QString msg) { message (msg, Qt::blue); }
 	void message (QString msg, QColor color = Qt::black);
@@ -116,16 +127,19 @@ private slots:
 	void onActionBestScoresTriggered();
 	void onActionUndoTriggered();
 	void onActionHelpTriggered();
-	void onActionModeDemo();
 	void setDefaultOptions();
 	void setDefaultColors();
 	void setDefaultDisplay();
+	void onHumanViewClicked( const QModelIndex & index );
+	void onRobotViewClicked( const QModelIndex & index );
+	void endOfPlay(int id);
 	void setNames();
 	void onUpdatePerspective();
 	void onClearScores();
 	void onChangeRollTimeValue(int newValue);
 	void onStackCurrentChanged (int page);
-	void onChangePlayer();
+	void onChangePlayer(int player);
+	void onMustDisableUndo();
 	void onClearLogs();
 };
 

@@ -11,15 +11,15 @@ class ColorSelectButton : public QWidget
 
 public:
 	ColorSelectButton(QWidget* parent = 0);
-	~ColorSelectButton() {}
+	~ColorSelectButton();
 
 	inline QColor& color() { return m_color; }
 	void setColor(QColor color);
 
 	void paintEvent (QPaintEvent*);
 	void mouseReleaseEvent (QMouseEvent *);
-	void enterEvent (QEvent*) { update (); }
-	void leaveEvent (QEvent*) { update (); }
+	void enterEvent (QEvent*) { repaint(); }
+	void leaveEvent (QEvent*) { repaint(); }
 
 signals:
 	void colorChanged(QColor newColor);

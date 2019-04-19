@@ -33,5 +33,24 @@ public:
 };
 
 
+//---------------- INLINE's ---------------
+inline void Coord::setRow(int row)
+{
+	m_row = row;
+	if (m_row < FIRST_ROW || m_row > LAST_ROW) m_row = INVALID_ROW;
+}
+//--------------------------------------
+inline void Coord::setColumn(int column)
+{
+	m_column = column;
+	if (m_column < FIRST_COLUMN || m_column > LAST_COLUMN) m_column = INVALID_COLUMN;
+}
+//-------------------------------------------------
+inline Coord& Coord::operator= (const Coord& other)
+{
+	setRow(other.m_row);
+	setColumn(other.m_column);
+	return *this;
+}
 
 #endif // COORD_H

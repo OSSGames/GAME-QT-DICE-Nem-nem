@@ -16,6 +16,10 @@ ColorSelectButton::ColorSelectButton(QWidget* parent) : QWidget(parent)
 	m_color = Default::playerColor();
 	setFixedSize(QSize(20, 20));
 }
+//-------------------------------------
+ColorSelectButton::~ColorSelectButton()
+{
+}
 //----------------------------------------------
 void ColorSelectButton::paintEvent(QPaintEvent*)
 {

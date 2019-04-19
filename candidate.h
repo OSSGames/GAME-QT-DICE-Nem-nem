@@ -26,13 +26,13 @@ public:
 
 	void clear();
 
-	bool operator== (const Candidate& other) const { return m_coord == other.m_coord; }
+	inline bool operator== (const Candidate& other) const { return m_coord == other.m_coord; }
 
 	Candidate& operator=(const Candidate& other);
 
-	bool isValid () const { return m_coord.isValid(); }
+	inline bool isValid () const { return m_coord.isValid(); }
 
-	int note () const { return m_note; }
+	inline int note () const { return m_note; }
 
 	void setNote (int n)
 	{
@@ -40,35 +40,82 @@ public:
 		m_note = n;
 	}
 
-	int points () const { return m_points; }
-	void setPoints (int p) { m_points = p; }
+	inline int points () const { return m_points; }
+	inline void setPoints (int p) { m_points = p; }
 
-	void setHopedPoints (int h) { m_hopedPoints = h; }
-	int hopedPoints () { return m_hopedPoints; }
+	inline void setHopedPoints (int h) { m_hopedPoints = h; }
+	inline int hopedPoints () { return m_hopedPoints; }
 
-	int count () const { return m_count; }
-	void setCount (int c) { m_count = c; }
+	inline int count () const { return m_count; }
+	inline void setCount (int c) { m_count = c; }
 
-	QList<int> diceToRoll () const { return m_diceToRoll; }
-	void setDiceToRoll (QList<int> list) { m_diceToRoll = list; }
+	inline QList<int> diceToRoll () const { return m_diceToRoll; }
+	inline void setDiceToRoll (QList<int> list) { m_diceToRoll = list; }
 
-	Coord coord () const { return m_coord; }
-	void setCoord (Coord c) { m_coord = c; }
+	inline Coord coord () const { return m_coord; }
+	inline void setCoord (Coord c) { m_coord = c; }
 
-	int row () const { return m_coord.row(); }
-	int column () const { return m_coord.column(); }
+	inline int row () const { return m_coord.row(); }
+	inline int column () const { return m_coord.column(); }
 
-	void setFuture (int s) { m_future = s; }
-	int future () const { return m_future; }
+	inline void setFuture (int s) { m_future = s; }
+	inline int future () const { return m_future; }
 
-	bool isInTop() const { return row() >= AS && row() <= SIX; }
-	bool isInBottom() const { return row() >= FIRST_FIGURE && row() <= LAST_FIGURE; }
+	inline bool isInTop() const { return row() >= AS && row() <= SIX; }
+	inline bool isInBottom() const { return row() >= FIRST_FIGURE && row() <= LAST_FIGURE; }
 
 };
 
 
 
 
+//----------------------------
+inline Candidate::Candidate ()
+{
+	m_coord.clear();
+	m_note = 0;
+	m_points = 0;
+	m_hopedPoints = 0;
+	m_count = 0;
+	m_diceToRoll.clear();
+	m_future = NoStatus;
+}
+//------------------------------------------------------------
+inline Candidate& Candidate::operator=(const Candidate& other)
+{
+	m_coord = other.m_coord;
+	m_note = other.m_note;
+	m_points = other.m_points;
+	m_hopedPoints = other.m_hopedPoints;
+	m_count = other.m_count;
+	m_diceToRoll = other.m_diceToRoll;
+	m_future = other.m_future;
+
+	return *this;
+}
+//--------------------------------------------------
+inline Candidate::Candidate (const Candidate& other)
+{
+	*this = other;
+}
+//---------------------------------------------------------
+inline Candidate::Candidate (int r, int c, int count, int p)
+{
+	Candidate(Coord(r,c), count, p);
+}
+//--------------------------------------------------------
+inline Candidate::Candidate (Coord c, int count, int p)
+{
+	clear ();
+	setCoord (c);
+	setCount (count);
+	setPoints (p);
+}
+//----------------------------
+inline void Candidate::clear()
+{
+	*this = Candidate();
+}
 
 
 #endif // CANDIDATE_H

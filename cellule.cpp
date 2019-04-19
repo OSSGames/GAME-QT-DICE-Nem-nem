@@ -7,21 +7,26 @@
 Cellule::Cellule ()
 {
 	clear();
+	m_isValid = false;
 }
-//------------------------------------
+//--------------------------------------------
 Cellule::Cellule (const Cellule& other)
 {
 	clear();
 	m_coord = other.m_coord;
+	m_isAvailable = other.m_isAvailable;
 	m_diceList = other.m_diceList;
 	m_status = other.m_status;
 	m_value = other.m_value;
+	m_isValid = other.m_isValid;
 	m_order = other.m_order;
 }
 //---------------------------
 void Cellule::clear ()	// vide la cellule
 {
 	m_coord.clear();
+	m_isAvailable = false;
+	m_isValid = true;
 	m_diceList = QList<int>() << 0 << 0 << 0 << 0 << 0;
 	m_status = 0;
 	m_value = 0;

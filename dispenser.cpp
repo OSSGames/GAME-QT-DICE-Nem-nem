@@ -8,13 +8,12 @@
 void Roll::clear()
 {
 	m_diceValues = QString("%1%2%3%4%5")
-			.arg(NNTools::alea1_6())
-			.arg(NNTools::alea1_6())
-			.arg(NNTools::alea1_6())
-			.arg(NNTools::alea1_6())
-			.arg(NNTools::alea1_6());	// exemple "41125"
+			.arg(NemNemTools::alea1_6())
+			.arg(NemNemTools::alea1_6())
+			.arg(NemNemTools::alea1_6())
+			.arg(NemNemTools::alea1_6())
+			.arg(NemNemTools::alea1_6());	// exemple "41125"
 
-	m_diceValues.squeeze ();
 }
 //---------------------------------
 void Roll::setValue (QString value)
@@ -27,32 +26,20 @@ void Roll::setValue (QString value)
 //----------------------------------
 int Roll::dieValue (int index) const
 {
+//	if (index < 0 || index >= 4)  return BAD_DIE_VALUE;
 	return m_diceValues.mid(index, 1).toInt();
 }
-
-/*******************************************************************/
-
-Roll Turn::rollValue (int index /* entre 1 et 3 !! */) const
-{
-	return m_roll[index - 1];
-}
-//------------------------------------------------
-void Turn::setRollValue (int index, QString value)
-{
-	m_roll[index - 1].setValue(value);
-}
 //----------------
-void Turn::clear ()
+void Turn::clear()
 {
 	for (int index = 0 ; index < 3 ; index++)
 		m_roll[index].clear();
 }
-
-/*******************************************************************/
-
+//--------------------
 Dispenser::Dispenser()
 {
 	clear ();
+	init ();
 }
 //--------------------
 void Dispenser::clear()
@@ -63,6 +50,14 @@ void Dispenser::clear()
 	}
 }
 
+//------------------------------
+void Dispenser::init (bool alea)
+{
+	if (alea)
+	{
+		clear();
+	}
+}
 //--------------------------------------------------------
 int Dispenser::value (int turnNum, int rollNum, int dieNum)
 {

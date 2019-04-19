@@ -10,6 +10,7 @@
 #include <QColor>
 #include <QIcon>
 #include <QImage>
+#include <QPicture>
 #include <QGraphicsSceneMouseEvent>
 #include <QStyleOptionGraphicsItem>
 #include <QGraphicsDropShadowEffect>
@@ -41,7 +42,6 @@ public:
 	int value() { return m_value; }
 
 	void setCaro (int value, QString strValue = "cl");
-	void setNextCaro ();
 
 	void setInitPos(QPointF pos) { m_initPos = pos; }
 	const QPointF& initialPos() { return m_initPos; }
@@ -54,7 +54,7 @@ public:
 
 	void setSize (qreal size);
 	void setColors(QColor& normalColor, QColor& selectedColor);
-	void setPixmap (QPixmap pixmap);
+	void setImage (QImage image);
 	void setDisplayMode (int mode);	// CLASSIQUE ou CHIFFRES
 	void setSimpleAspect (bool aspect);
 	void setPipColor(QColor& color);
@@ -68,7 +68,7 @@ private:
 	int m_value;
 	int m_caro;
 	int m_aspect;
-	QPixmap m_pixmap;
+	QImage m_image;
 	QString m_caroText;
 	QList<int> m_pipNumList[7];
 	QColor m_pipColor;
@@ -81,8 +81,10 @@ private:
 	bool hasBadValue() { return m_value == BAD_DIE_VALUE; }
 
 	void redraw (QPainter* painter);
-	void drawPip (QPainter* painter, qreal origX, qreal origY, qreal side);
+	QPicture pipPicture(qreal side);
 };
+
+// -------------- INLINE's
 
 
 #endif // DIEITEM_H

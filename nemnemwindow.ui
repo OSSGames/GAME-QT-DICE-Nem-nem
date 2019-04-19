@@ -48,7 +48,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="mainPage">
        <layout class="QGridLayout" name="gridLayout">
@@ -1169,7 +1169,14 @@ p, li { white-space: pre-wrap; }
              </property>
             </widget>
            </item>
-           <item row="0" column="4" colspan="2">
+           <item row="0" column="4">
+            <widget class="QCheckBox" name="optionDemoMode">
+             <property name="text">
+              <string>Mode démonstration</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
             <spacer name="horizontalSpacer_10">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -2146,9 +2153,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionNew"/>
     <addaction name="separator"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionReplay"/>
     <addaction name="actionSave"/>
-    <addaction name="actionDemo"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -2382,20 +2387,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Esc</string>
-   </property>
-  </action>
-  <action name="actionReplay">
-   <property name="icon">
-    <iconset resource="nem-nem.qrc">
-     <normaloff>:/images/view-refresh.svg</normaloff>:/images/view-refresh.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Rejouer une partie...</string>
-   </property>
-  </action>
-  <action name="actionDemo">
-   <property name="text">
-    <string>Démo</string>
    </property>
   </action>
  </widget>

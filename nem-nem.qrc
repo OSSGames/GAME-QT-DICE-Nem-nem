@@ -28,6 +28,7 @@
         <file>images/Nokia-QtCreator.png</file>
         <file>images/preview-file.svg</file>
         <file>images/window-close.svg</file>
+        <file>images/emblem-OK.svg</file>
         <file>images/nem-nem.png</file>
         <file>images/chiffres.png</file>
         <file>images/relief.png</file>
@@ -40,8 +41,5 @@
         <file>sounds/rollDice.wav</file>
         <file>images/nem-nem-ordinateur.png</file>
         <file>images/nem-nem-tete.png</file>
-        <file>images/view-refresh.svg</file>
-        <file>images/media-playback-start.svg</file>
-        <file>images/x-office-spreadsheet.svg</file>
     </qresource>
 </RCC>

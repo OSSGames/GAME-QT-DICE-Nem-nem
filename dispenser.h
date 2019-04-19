@@ -16,11 +16,10 @@ private:
 
 public:
 	Roll() { clear(); }
-	~Roll () {}
 
 	void clear();
 
-	QString value () const { return m_diceValues; }
+	QString value() const { return m_diceValues; }
 	void setValue (QString value);
 
 	int dieValue (int index) const ;
@@ -33,29 +32,27 @@ private:
 	Roll m_roll[3] ;
 
 public:
-	Turn () { clear(); }
-	~Turn () {}
+	Turn() { clear(); }
 
 	void clear();
 
-	Roll rollValue (int index /* entre 1 et 3 !! */) const;
-	void setRollValue (int index, QString value);
+	Roll rollValue(int index /* entre 1 et 3 !! */) const { return m_roll[index - 1]; }
+	void setRollValue(int index, QString value) { m_roll[index - 1].setValue(value); }
 };
 //***********************
 class Dispenser
 {
 private:
-	Turn m_turn[CELLS_COUNT + 1];
-	static QString className () { return "Dispenser"; }
+	Turn m_turn[CELLS_COUNT+1];
+	static QString className() { return "Dispenser"; }
+	void clear ();
 
 public:
 	Dispenser ();
 	~Dispenser () {}
-
-	void clear ();
+	void init (bool alea = true);
 	int value (int turnNum, int rollNum, int dieNum);
 
-	// sérialisation
 	void saveTo (QString fileName);
 	void loadFrom (QString fileName);
 };

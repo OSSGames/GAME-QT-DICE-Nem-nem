@@ -17,9 +17,9 @@ public:
 
 	static QString getenv(QString var);	// retourne la valeur de la variable d'environnement var
 
-	static QString getUserName ();	// le nom de la session de l'utilisateur
-	static QString getRobotName () { return "Robot"; }	// le nom du Robot
-	static QString DEName ();
+	static QString getUserName();	// le nom de la session de l'utilisateur
+	static QString getRobotName() { return "Robot";	}	// le nom du Robot
+	static QString DEName();
 };
 
 #endif // SYSTEMTOOLS_H

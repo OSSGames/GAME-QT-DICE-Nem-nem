@@ -4,26 +4,25 @@
 
 
 
-//---------------------------------------------------------------
-Automate::Automate (Grid* grid, GameBoard* piste, bool helpMode)
+//-------------------------------------------------------------------
+Automate::Automate (Grille* grille, GameBoard* piste, bool helpMode)
 {
-	m_grid = grid;
-	m_session = m_grid->session();
+	m_grille = grille;
+	m_session = m_grille->session();
 	m_piste = piste;
 	m_helpMode = helpMode;
 	m_enabled = true;
 	m_diceHistory.clear();
 	m_candidates.clear();
-	m_eventToReturn = new NNEvent (NNEvent::Automate);
 	installPriorities();
 }
 //---------------------------------
 void Automate::installPriorities ()
 {
 	m_priorityToPlayRow.clear();
-	m_priorityToPlayRow << UNE_PAIRE << DEUX_PAIRES << BRELAN << CARRE;
 	m_priorityToPlayRow << MOINS;
 	m_priorityToPlayRow << PLUS;
+	m_priorityToPlayRow << UNE_PAIRE << DEUX_PAIRES << BRELAN << CARRE;
 	m_priorityToPlayRow << AS << DEUX << TROIS << QUATRE << CINQ << SIX;
 	m_priorityToPlayRow << FULL << PETITE_SUITE << GRANDE_SUITE << NEM_NEM;
 
@@ -58,17 +57,15 @@ void Automate::run (int currentRoll)
 
 	m_currentRoll = currentRoll;
 
-	m_eventToReturn->clear ();
+	m_currentDown = m_grille->currentDown();
+	m_currentUp = m_grille->currentUp();
+	m_currentFree = m_grille->currentFree();
+	m_currentOneShot = m_grille->currentOneShot();
 
-	m_currentDown = m_grid->currentDown();
-	m_currentUp = m_grid->currentUp();
-	m_currentFree = m_grid->currentFree();
-	m_currentOneShot = m_grid->currentOneShot();
-
-	m_diceValues = m_grid->diceList();
+	m_diceValues = m_grille->diceList();
 	m_diceHistory << m_diceValues;	// stats ??
 
-	trace (tr("J'étudie le lancer : %1...").arg(NNTools::format(m_diceValues, "-")));
+	trace (tr("J'étudie le lancer : %1...").arg(NemNemTools::format(m_diceValues, "-")));
 
 	// construction de la liste des <Candidate*>
 	fillCandidates();
@@ -131,17 +128,14 @@ bool Automate::playTheChoice ()
 		if (m_helpMode)
 		{
 			emit suggestion(tr("Jouez la ligne %1 dans la colonne %2 (gain : %3 points)")
-								.arg(NNTools::rowName(m_choice.row()))
-								.arg(NNTools::columnName(m_choice.column()))
+								.arg(NemNemTools::rowName(m_choice.row()))
+								.arg(NemNemTools::columnName(m_choice.column()))
 								.arg(m_choice.points()));
-
-			m_eventToReturn->setSuggestCellEvent (m_choice.coord ());
-			return m_grid->setSuggestionCoord(m_choice.coord());
+			return m_grille->setSuggestionCoord(m_choice.coord());
 		}
 		else
 		{
-			m_eventToReturn->setPlayCellEvent (m_choice.coord ());
-			return m_grid->playInCell(m_choice.coord());
+			return m_grille->playInCell(m_choice.coord());
 		}
 		break;
 
@@ -149,16 +143,14 @@ bool Automate::playTheChoice ()
 		if (m_helpMode)
 		{
 			emit suggestion(tr("Effacez la cellule ligne %1 colonne %2")
-								.arg(NNTools::rowName(m_choice.row()))
-								.arg(NNTools::columnName(m_choice.column()))
+								.arg(NemNemTools::rowName(m_choice.row()))
+								.arg(NemNemTools::columnName(m_choice.column()))
 								);
-			m_eventToReturn->setSuggestCellEvent (m_choice.coord ());
-			return m_grid->setSuggestionCoord(m_choice.coord());
+			return m_grille->setSuggestionCoord(m_choice.coord());
 		}
 		else
 		{
-			m_eventToReturn->setPlayCellEvent (m_choice.coord ());
-			return m_grid->playInCell(m_choice.coord());
+			return m_grille->playInCell(m_choice.coord());
 		}
 		break;
 
@@ -169,15 +161,13 @@ bool Automate::playTheChoice ()
 		if (m_helpMode)
 		{
 			emit suggestion(tr("Rejouez le(s) dé(s) n° %1 pour tenter de marquer la ligne %2 dans la colonne %3")
-								.arg(NNTools::format(m_choice.diceToRoll(), ","))
-								.arg(NNTools::rowName(m_choice.row()))
-								.arg(NNTools::columnName(m_choice.column()))
+								.arg(NemNemTools::format(m_choice.diceToRoll(), ","))
+								.arg(NemNemTools::rowName(m_choice.row()))
+								.arg(NemNemTools::columnName(m_choice.column()))
 								);
-			m_eventToReturn->setSelectDiceEvent (m_choice.diceToRoll ());
 		}
 		else
 		{
-			m_eventToReturn->setRollDiceEvent (m_choice.diceToRoll ());
 			m_piste->rollSelectedDice();
 		}
 
@@ -194,7 +184,7 @@ void Automate::fillCandidates()
 {
 	clearCandidates();
 
-	QList<Candidate> list(m_grid->candidateList());
+	QList<Candidate> list(m_grille->candidateList());
 
 	foreach (Candidate candidate, list)
 	{
@@ -280,8 +270,8 @@ Candidate Automate::candidateToPlayFast ()
 	if (result.isValid())
 	{
 		trace (tr("Trouvée : c'est la ligne %1 dans la colonne %2")
-				.arg(NNTools::rowName(result.row()))
-				.arg(NNTools::columnName(result.column())));
+				.arg(NemNemTools::rowName(result.row()))
+				.arg(NemNemTools::columnName(result.column())));
 	}
 	else
 	{
@@ -316,8 +306,8 @@ Candidate Automate::candidateToPlayEventually ()
 	if (result.isValid())
 	{
 		trace (tr("Trouvée : c'est la ligne %1 dans la colonne %2")
-				.arg(NNTools::rowName(result.row()))
-				.arg(NNTools::columnName(result.column())));
+				.arg(NemNemTools::rowName(result.row()))
+				.arg(NemNemTools::columnName(result.column())));
 	}
 	else
 	{
@@ -347,8 +337,8 @@ Candidate Automate::candidateToImprove ()
 	if (result.isValid())
 	{
 		trace (tr("Trouvée : c'est la ligne %1 dans la colonne %2")
-				.arg(NNTools::rowName(result.row()))
-				.arg(NNTools::columnName(result.column())));
+				.arg(NemNemTools::rowName(result.row()))
+				.arg(NemNemTools::columnName(result.column())));
 	}
 	else
 	{
@@ -375,8 +365,8 @@ Candidate Automate::candidateToErase ()
 	if (result.isValid())
 	{
 		trace (tr("Trouvée : c'est la ligne %1 dans la colonne %2")
-				.arg(NNTools::rowName(result.row()))
-				.arg(NNTools::columnName(result.column())));
+				.arg(NemNemTools::rowName(result.row()))
+				.arg(NemNemTools::columnName(result.column())));
 	}
 	else
 	{
@@ -808,177 +798,14 @@ void Automate::setNote(Candidate *c)
 			note *= 2;
 	}
 
-//	if (m_grid->fillRate(DOWN) < m_grid->fillRate(UP) && c->column() == DOWN)
+//	if (m_grille->fillRate(DOWN) < m_grille->fillRate(UP) && c->column() == DOWN)
 //		note *= 2;
 
 	c->setNote(note);
 
 	trace(tr("Ligne %1 colonne %2 --> note = %3")
-		  .arg(NNTools::rowName(c->row()))
-		  .arg(NNTools::columnName(c->column()))
+		  .arg(NemNemTools::rowName(c->row()))
+		  .arg(NemNemTools::columnName(c->column()))
 		  .arg(note)
 		  );
-}
-
-//-------------------------------------
-void Automate::clearCandidates()
-{
-	while (!m_candidates.isEmpty()) delete m_candidates.takeLast();
-}
-//---------------------------------------
-QSet<int> Automate::playableRows()
-{
-	QSet<int> result;
-
-	foreach (Candidate* c, m_candidates)
-		result.insert(c->row());
-
-	return result;
-}
-// ------------------------------------------------------------
-Candidate* Automate::findCandidate (int row, int column)
-{
-	foreach (Candidate* c, m_candidates)
-	{
-		if (c->row() == row && c->column() == column) return c;
-	}
-
-	return 0;
-}
-
-//---------------------------------------------------
-bool Automate::isPlayable(int row, int column)
-{
-	Candidate* c = findCandidate (row, column);
-
-	if (c == 0) return false;
-
-	return  (c->row() == row && c->column() == column);
-}
-//-------------------------------------------------------------
-bool Automate::isPlayableWithPoints(int row, int column)
-{
-	Candidate* c = findCandidate (row, column);
-
-	if (c == 0) return false;
-
-	return  (c->row() == row && c->column() == column && c->points() > 0);
-}
-//-------------------------------------
-int Automate::maxPoints(int row)
-{
-	int max = 0;
-	foreach (Candidate* c, m_candidates)
-	{
-		if (c->row() == row && c->points() > max)
-			max = c->points();
-	}
-
-	return max;
-}
-//-------------------------------------------
-int Automate::futureGap (Candidate* c)
-{
-	if (!c->isInTop())
-		return -999;
-
-	int row = c->row();
-	int column = c->column();
-
-	if (column == DOWN && row != m_currentDown)
-		return -999;
-
-	if (column == UP && row != m_currentUp)
-		return -999;
-
-	return m_grid->topGap(column) + c->points() - 3 * (row + 1);
-}
-//----------------------------------------------------------------------
-QList<int> Automate::allButFigure (Figure listToKeep, int valMin) // valMin = 7 par défaut : tout rejouer
-{
-	QList<int> result;
-
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-		if (!listToKeep.contains(dieNum) && (m_diceValues.at(dieNum) < valMin))
-			result << dieNum;
-
-	return result;
-}
-//----------------------------------------------------------------
-QList<int> Automate::allButValues (QList<int> valuesToKeep)
-{
-	QList<int> result;
-	QList<int> valuesKept;
-
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-	{
-		int value = m_diceValues[dieNum];
-		if (!valuesToKeep.contains(value) || valuesKept.contains(value))
-			result << dieNum;
-
-		valuesKept << value;
-	}
-
-	return result;
-}
-//-------------------------------------------------
-QList<int> Automate::allButValue (int value)
-{
-	QList<int> result;
-
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-	{
-		int dieValue = m_diceValues.at(dieNum);
-		if (dieValue != value)
-			result << dieNum;
-	}
-
-	return result;
-}
-//------------------------------------------------
-QList<int> Automate::allLessThan(int value)
-{
-	QList<int> result;
-
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-		if (m_diceValues.at(dieNum) < value)
-			result << dieNum;
-
-	return result;
-}
-//---------------------------------------------------
-QList<int> Automate::allGreaterThan(int value)
-{
-	QList<int> result;
-
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-		if (m_diceValues.at(dieNum) > value)
-			result << dieNum;
-
-	return result;
-}
-//-----------------------------------------------
-int Automate::sum (QList<int> diceNumbers)
-{
-	int result = 0;
-	foreach (int num, diceNumbers)
-		result += m_diceValues.at(num);
-
-	return result;
-}
-//--------------------------------------------------------------
-QList<int>Automate::allButNumbers(QList<int> diceNumbers)
-{
-	QList<int> result;
-	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
-		if (!diceNumbers.contains(dieNum))
-			result << dieNum;
-
-	return result;
-}
-//---------------------------------------
-void Automate::trace(QString msg)
-{
-	if (!m_analyzeLogMode) return;
-	emit analyze(tr("(Robot) ") + msg);
 }

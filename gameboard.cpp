@@ -1,15 +1,15 @@
 #include "gameboard.h"
+#include "systemtools.h"
+#include "default.h"
 
-//-------------------------------------------------------------
-GameBoard::GameBoard (bool demo, int diceCount, qreal diceSize)
+#include <QSequentialAnimationGroup>
+#include <QEventLoop>
+#include <QDebug>
+#include <QGraphicsView>
+
+//---------------------------------------------------
+GameBoard::GameBoard (int diceCount, qreal diceSize)
 {
-	m_isDemo = demo;
-
-	if (demo) m_isDisabled = false;
-
-	m_currentPlayer = HUMAN;
-	m_messagesOnBoard = true;
-
 	QLinearGradient tableGradient(0.0, 0.0, 17.0, 0.0);
 	tableGradient.setColorAt(0.0, Default::tableColor().lighter(105));
 	tableGradient.setColorAt(0.4, Default::tableColor());
@@ -20,8 +20,7 @@ GameBoard::GameBoard (bool demo, int diceCount, qreal diceSize)
 	m_diceFaceColor = Qt::white;
 	m_diceSelectedColor = Qt::red;
 
-	if (diceCount != 1 && diceCount != 3 && diceCount != 5)
-		diceCount = 5;
+	if (diceCount != 1 && diceCount != 3 && diceCount != 5) diceCount = 1;
 	m_diceCount = diceCount;
 	m_dice.clear();
 
@@ -58,12 +57,11 @@ GameBoard::GameBoard (bool demo, int diceCount, qreal diceSize)
 		x += (die->boundingRect().width() + wSpace);
 	}
 
-	setAnimationDuration (Default::rollingTime());
+	setAnimationDuration(Default::rollingTime());
 
 	m_currentPlayer = HUMAN;
 	setAnimatedRoll(HUMAN, true);
 	setAnimatedRoll(ROBOT, false);
-
 
 	m_textItem = new QGraphicsTextItem("", 0, this);
 
@@ -82,18 +80,8 @@ GameBoard::GameBoard (bool demo, int diceCount, qreal diceSize)
 //---------------------
 void GameBoard::clear()
 {
-	// on repart à zéro
-	// donc
-	m_currentPlayer = HUMAN;
-	m_currentTurn = 1;
-	m_currentRoll = 1;
-
-	m_prevTurn = 0;
-	m_prevRoll = 0;
-
-	setEnabled ();
-
-	m_dispenser.clear ();
+	initAleaValues();
+	clearSeed();
 }
 //----------------------------------------------
 void GameBoard::setBackgroundColor(QColor color)
@@ -112,6 +100,20 @@ void GameBoard::setDiceSize(qreal size)
 	m_diceSize = size ;
 	foreach (Die* die, m_dice)
 		die->setSize(size);
+}
+//-------------------------------------------------------
+void GameBoard::setNextDiceValues (QList<int> diceValues)
+{
+	for (int index = 0 ; index < 5 ; index++ )
+		m_aleaValues[index].head() = diceValues[index];
+}
+//------------------------------------------
+void GameBoard::setCurrentPlayer(int player)
+{
+	m_currentPlayer = player;
+
+	if (player == HUMAN)
+		clearSeed();
 }
 //-------------------------------------------
 void GameBoard::animate(QList<int> whichDice)
@@ -163,7 +165,7 @@ void GameBoard::animate(QList<int> whichDice)
 
 		QPropertyAnimation* animRotation = new QPropertyAnimation(die, "rotation");
 		animRotation->setStartValue(0);
-		int rotNum = NNTools::signedAlea(2);
+		int rotNum = NemNemTools::signedAlea(2);
 		animRotation->setKeyValueAt(CHANGE, 360.0 * rotNum);
 		animRotation->setEndValue(0);
 		animRotation->setEasingCurve(ANIM_TYPE);
@@ -186,7 +188,7 @@ void GameBoard::animate(QList<int> whichDice)
 
 	views().first()->setEnabled(true);
 }
-//-----------------------------------------
+//-------------------------------------
 bool GameBoard::isAnimatedRoll(int player)
 {
 	if (m_animationDuration == 0)
@@ -202,23 +204,9 @@ void GameBoard::rollAllDice ()
 
 	rollSelectedDice();
 }
-//--------------------------------
-void GameBoard::unselectAllDice ()
-{
-	foreach (Die* die, m_dice)
-		die->setSelectedForRolling(false);
-}
-
 //---------------------------------
 void GameBoard::rollSelectedDice ()
 {
-	if (m_isDisabled)
-	{
-		unselectAllDice ();
-		return;
-	}
-
-
 	QList<int> whichDice;
 	int index = 0;
 	foreach (Die* die, m_dice)
@@ -236,13 +224,13 @@ void GameBoard::rollSelectedDice ()
 
 	foreach (int dieNum, whichDice)
 	{
-		setAleaValue(dieNum);
+		setAleaValue(m_currentPlayer, dieNum);
 		m_dice[dieNum]->setSelectedForRolling(false);
 	}
 
 	// afficher éventuellement une information sur la figure obtenue
-	// si le joueur est humain ou si c'est une démo
-	if (m_currentPlayer == HUMAN || m_isDemo)
+	// si le joueur est humain
+	if (m_currentPlayer == HUMAN)
 	{
 		bool aMessageWasDiplayed = false;
 		Lancer session(diceValues());
@@ -250,28 +238,21 @@ void GameBoard::rollSelectedDice ()
 		{
 			if (session.contains(row))
 			{
-				if (row == NEM_NEM && m_activeSounds) m_sound->play(SOUND_APPLAUSE);
+				if (row == NEM_NEM && m_activeSounds)
+					m_sound->play(SOUND_APPLAUSE);
 
-				displayMessage(NNTools::rowName(row));
+				displayMessage(NemNemTools::rowName(row));
 				aMessageWasDiplayed = true;
 				break;
 			}
 		}
-		if (!aMessageWasDiplayed) displayMessage(tr("À vous de jouer !"));
-	}
+		if (!aMessageWasDiplayed)
+			displayMessage(tr("À vous de jouer !"));
 
-	// pour le undo ()
-	if (m_currentPlayer == HUMAN)
-	{
-		m_prevTurn = m_currentTurn;
-		m_prevRoll = m_currentRoll;
 	}
 
 	// signaux
-	m_currentRoll++;
-	if (m_currentRoll > 3) setDisabled ();
-
-	emit newRoll(m_currentPlayer, m_currentTurn, m_currentRoll-1, diceValues());
+	emit newDiceValues(diceValues());
 }
 //------------------------------
 bool GameBoard::existSelection()
@@ -295,8 +276,6 @@ QList<int> GameBoard::diceValues() const
 //----------------------------------------------------------------
 void GameBoard::mousePressEvent (QGraphicsSceneMouseEvent * event)
 {
-	if (m_isDisabled) return;
-
 	const QGraphicsItem* item(itemAt(event->scenePos()));
 	if (event->buttons() == Qt::LeftButton)
 	{
@@ -318,6 +297,7 @@ void GameBoard::mousePressEvent (QGraphicsSceneMouseEvent * event)
 				qreal ymax = middleItem()->boundingRect().bottom();
 				if (y < ymin || y > ymax)
 				{
+					emit humanNewRoll();
 					rollSelectedDice ();
 				}
 			}
@@ -329,11 +309,6 @@ void GameBoard::mousePressEvent (QGraphicsSceneMouseEvent * event)
 		if (item == 0)	// clic sur la table
 		{
 			// menu contextuel
-			// ou nextCaro ;)
-//			foreach (Die* die1, m_dice)
-//			{
-//				die1->setNextCaro ();
-//			}
 		}
 		else
 		{
@@ -382,7 +357,7 @@ void GameBoard::setDicePipsColor(QColor color)
 void GameBoard::setDiceIcon (bool drawLogo)
 {
 	foreach (Die* die, m_dice)
-		die->setPixmap(drawLogo ? QPixmap(Default::logoPath()) : QPixmap());
+		die->setImage(drawLogo ? QImage(Default::logoPath()) : QImage());
 }
 //------------------------------------------
 void GameBoard::setDiceDisplayMode(int mode)
@@ -401,24 +376,65 @@ void GameBoard::setDiceSimpleAspect(bool isSimple)
 	foreach (Die* die, m_dice)
 		die->setSimpleAspect(isSimple);
 }
-//---------------------------------------
-void GameBoard::setAleaValue (int dieNum)
+//---------------------------------------------------
+void GameBoard::setAleaValue (int player, int dieNum)
 {
 	// donne une valeur entre 1 et 6 au dé dieNum pour l'utilisateur id.
 
 	int value;
-
-	if (m_isDemo)
-		value = NNTools::alea1_6 ();
+	if (player != HUMAN && player != ROBOT )
+		value = NemNemTools::alea1_6();
 	else
-		value = m_dispenser.value (m_currentTurn, m_currentRoll, dieNum);
+	{
+		if (m_turn[player][dieNum].isEmpty())
+			clearSeed();
 
+		value = m_turn[player][dieNum].dequeue();
+	}
 	m_dice[dieNum]->setValue(value);
+}
+//--------------------------
+void GameBoard::clearSeed ()
+{
+	for (int dieNum = 0 ; dieNum < 5 ; ++dieNum)
+	{
+		m_turn[HUMAN][dieNum].clear();
+		m_turn[ROBOT][dieNum].clear();
+	}
+
+	int value;
+	// reremplir les distributeurs personnels, pour les 5 dés
+	for (int dieNum = 0 ; dieNum < 5 ; ++dieNum)
+	{
+		for (int count = 0 ; count < 3 ; count++)	// 3 = nombre de lancers
+		{
+			if (m_aleaValues[dieNum].isEmpty())
+				value = NemNemTools::alea1_6(); // dépannage : le distributeur est vide
+			else
+				value = m_aleaValues[dieNum].dequeue();
+
+			m_turn[HUMAN][dieNum].enqueue(value);
+			m_turn[ROBOT][dieNum].enqueue(value);
+		}
+	}
+}
+//------------------------------
+void GameBoard::initAleaValues()
+{
+	for (int dieNum = 0 ; dieNum < 5 ; dieNum++)
+	{
+		m_aleaValues[dieNum].clear();
+		for (int count = 0 ; count < (ROWS_COUNT * COLUMNS_COUNT * 3) ; count++)
+		{
+			int value = NemNemTools::alea1_6();
+			m_aleaValues[dieNum].enqueue(value);
+		}
+	}
 }
 //------------------------------------------
 void GameBoard::displayMessage(QString text)
 {
-	if (! m_messagesOnBoard) return;
+	if (!m_messagesOnBoard) return;
 
 	m_textItem->setPlainText(text);
 	m_textItem->setDefaultTextColor(m_messageColor);
@@ -450,95 +466,10 @@ void GameBoard::displayMessage(QString text)
 void GameBoard::saveTo (QString fileName)
 {
 	m_dispenser.saveTo (fileName);
-
-	QSettings settings(fileName, QSettings::IniFormat);
-
-	settings.beginGroup(className());
-
-	m_prevTurn = m_currentTurn;
-	m_prevRoll = m_currentRoll;
-
-	settings.setValue("CurrentPlayer", m_currentPlayer);
-	settings.setValue("CurrentTurn", m_currentTurn);
-	settings.setValue("CurrentRoll", m_currentRoll);
-	settings.setValue("PreviousTurn", m_prevTurn);
-	settings.setValue("PreviousRoll", m_prevRoll);
-
-	settings.endGroup();
 }
 //-----------------------------------------
 void GameBoard::loadFrom (QString fileName)
 {
 	clear ();
-
 	m_dispenser.loadFrom (fileName);
-
-	QSettings settings (fileName, QSettings::IniFormat);
-
-	settings.beginGroup (className());
-
-	m_currentPlayer = settings.value ("CurrentPlayer", HUMAN).toInt ();
-	m_currentTurn = settings.value ("CurrentTurn", 1).toInt ();
-	m_currentRoll = settings.value ("CurrentRoll", 1).toInt ();
-	m_prevTurn = settings.value ("PreviousTurn", 0).toInt ();
-	m_prevRoll = settings.value ("PreviousRoll", 0).toInt ();
-
-	settings.endGroup();
-
-//	setCurrentPlayerData (m_currentPlayer, m_currentTurn, m_currentRoll);
-
-//	if (m_currentTurn > 1)
-//	{
-//		for (int index = 0 ; index < 5 ; index++)
-//		{
-//			setAleaValue (index);
-//		}
-
-//		emit newRoll(m_currentPlayer, m_currentTurn, m_currentRoll, diceValues());
-//	}
-
-}
-//-------------------------------------------------------------------
-void GameBoard::setCurrentPlayerData (int player, int turn, int roll)
-{
-	if (roll > 3) return;
-
-	m_currentPlayer = player;
-	m_currentTurn = turn;
-	m_currentRoll = roll;
-
-	setEnabled ();
-
-	if (roll == 1)
-	{
-		rollAllDice ();
-	}
-
-}
-//---------------------------------------------------------------------
-void GameBoard::getCurrentPlayerData(int &player, int &turn, int &roll)
-{
-	player = m_currentPlayer;
-	turn = m_currentTurn;
-	roll = m_currentRoll;
-}
-//---------------------
-void GameBoard::undo ()
-{
-	if (m_prevTurn == 0) return;
-
-	m_currentPlayer = HUMAN;
-	m_currentTurn = m_prevTurn;
-	m_prevTurn = 0;
-	m_currentRoll = m_prevRoll;
-	m_prevRoll = 0;
-
-	for (int index = 0 ; index < m_diceCount ; index++)
-	{
-		setAleaValue (index);
-	}
-
-	setDisabled ();
-
-	emit newRoll (m_currentPlayer, m_currentTurn, m_currentRoll, diceValues());
 }

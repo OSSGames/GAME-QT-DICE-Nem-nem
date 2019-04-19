@@ -104,8 +104,6 @@ void Lancer::setDiceList(QList<int> diceList)
 	}
 
 	// ------------------ on attaque PS, GS
-
-	// une petite suite contient les valeurs 1-2-3-4 ou 2-3-4-5 ou 3-4-5-6
 	QList<int> ps;
 	ps << m_diceList.indexOf(1) << m_diceList.indexOf(2) << m_diceList.indexOf(3) << m_diceList.indexOf(4);
 
@@ -124,7 +122,6 @@ void Lancer::setDiceList(QList<int> diceList)
 
 	if (!ps.isEmpty()) m_petiteSuite.setDiceValues(ps);
 
-	// une grande suite contient les valeurs 1-2-3-4-5 ou 2-3-4-5-6
 	QList<int> gs;
 	gs << m_diceList.indexOf(1) << m_diceList.indexOf(2) << m_diceList.indexOf(3) << m_diceList.indexOf(4) << m_diceList.indexOf(5);
 	if (gs.contains(-1))
@@ -189,7 +186,7 @@ int Lancer::computeValue(int row)
 		case CARRE:
 		case PLUS:
 		case MOINS:
-			return NNTools::diceSum(m_diceList);
+			return NemNemTools::diceSum(m_diceList);
 			break;
 		case FULL:
 			return FULL_POINTS;
@@ -222,4 +219,27 @@ QList<int> Lancer::diceWhoseValueIs(int value)
 			result << dieNum;
 
 	return result;
+}
+//------------------------------------
+void Lancer::saveTo (QDataStream& out)
+{
+	out << className ();
+	out << m_diceList;
+}
+//-------------------------------------
+void Lancer::loadFrom (QDataStream& in)
+{
+	clear ();
+
+	QString txt;
+	in >> txt;
+	if (txt != className ())
+	{
+		qDebug() << QString("Erreur de lecture - classe %1").arg (className ());
+		return;
+	}
+
+	QList<int> tempo;
+	in >> tempo;
+	setDiceList(tempo);
 }

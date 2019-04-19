@@ -16,7 +16,7 @@ private:
 
 public:
 	static QString nemNemFileExtension()	{ return QString(".nem"); }
-	static QString nemNemHomeDir()			{ return QDir::toNativeSeparators (".nem-nem/"); }
+	static QString nemNemHomeDir()			{ return  QDir::toNativeSeparators (".nem-nem/"); }
 	static QString nemNemHomePath()			{ return QDir::toNativeSeparators (QDir::homePath() + "/" + nemNemHomeDir()); }
 	static QString sessionFile()			{ return nemNemHomePath() + "session.nem"; }
 	static QString nemNemSoundPath()		{ return QDir::toNativeSeparators (QDir::tempPath() + "/"); }

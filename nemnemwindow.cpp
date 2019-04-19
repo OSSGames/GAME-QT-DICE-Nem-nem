@@ -22,29 +22,77 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 
 	ui->setupUi(this);
 
+	// création des joueurs
+	m_player[ROBOT] = new Player (ROBOT, tr("Robot"), this);
+	m_player[HUMAN] = new Player (HUMAN, tr("Humain"), this);
+
 	// création des pistes
 	// 1-piste de jeu
 
-	m_gameBoard = new GameBoard (false);
+	m_gameBoard = new GameBoard;
 	m_diceView = ui->gameBoardView;
 	m_diceView->setScene(m_gameBoard);
+	m_diceView->setRenderHints(
+			QPainter::Antialiasing |
+			QPainter::TextAntialiasing |
+			QPainter::SmoothPixmapTransform
+			);
+	m_diceView->setOptimizationFlags(QGraphicsView::DontSavePainterState);
+	m_diceView->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+	m_diceView->setCacheMode(QGraphicsView::CacheBackground);
 	m_diceView->setDragMode (QGraphicsView::NoDrag);
 
 	// 2-piste de démo
 
-	m_demoGameBoard = new GameBoard (true);
+	m_demoGameBoard = new GameBoard;
 	m_demoView = ui->demoView;
 	m_demoView->setScene(m_demoGameBoard);
+	m_demoView->setRenderHints(
+			QPainter::Antialiasing |
+			QPainter::TextAntialiasing |
+			QPainter::SmoothPixmapTransform
+			);
+	m_demoView->setOptimizationFlags(QGraphicsView::DontSavePainterState);
+	m_demoView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+	m_demoView->setCacheMode(QGraphicsView::CacheBackground);
 	m_demoView->setDragMode (QGraphicsView::NoDrag);
 
-	// Création des joueurs
-	m_player[HUMAN] = new Player (HUMAN, m_gameBoard, ui->humanView, TYPE_HUMAN, this);
-	m_player[ROBOT] = new Player (ROBOT, m_gameBoard, ui->robotView, TYPE_ROBOT, this);
+	// moteur de jeu
+	m_gameEngine = new GameEngine (this);
 
-	// Look de la view
+	// modèles de grilles
+
+	m_humanGrille = new Grille(HUMAN);
+	m_grilleModelHuman = new GrilleModel(m_humanGrille, this);
+	QColor defaultBackgroundColor = palette().color(QPalette::Base);
+	m_grilleModelHuman->setRefColors(defaultBackgroundColor,
+									 Default::playerColor(),
+									 Default::badValueColor(),
+									 Default::playableCellColor(),
+									 Default::selectedDieColor());
+
+	m_robotGrille = new Grille(ROBOT);
+	m_grilleModelRobot = new GrilleModel(m_robotGrille, this);
+	m_grilleModelRobot->setRefColors(defaultBackgroundColor,
+									 Default::robotColor(),
+									 Default::badValueColor(),
+									 Default::playableCellColor(),
+									 Default::selectedDieColor());
+
+	m_robotEngine = new Automate(m_robotGrille, m_gameBoard, false);
+	m_humanEngine = new Automate(m_humanGrille, m_gameBoard, true);
+	m_humanEngine->setEnabled(false);
+
+	// liaison affichage > modèles
 	ui->humanView->setGridStyle(Qt::SolidLine);
-	ui->humanView->setSelectionMode(QAbstractItemView::NoSelection);
-	ui->robotView->setSelectionMode(QAbstractItemView::NoSelection);
+
+	m_tableViewHuman = ui->humanView;
+	m_tableViewHuman->setModel(m_grilleModelHuman);
+	m_tableViewHuman->setSelectionMode(QAbstractItemView::NoSelection);
+
+	m_tableViewRobot = ui->robotView;
+	m_tableViewRobot->setModel(m_grilleModelRobot);
+	m_tableViewRobot->setSelectionMode(QAbstractItemView::NoSelection);
 
 	// barre d'outils
 	// icônes
@@ -57,10 +105,8 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	ui->actionUndo->setIcon(QIcon::fromTheme("edit-undo", QIcon(":/images/edit-undo.svg")));
 	ui->actionOptions->setIcon(QIcon::fromTheme("preferences-system", QIcon(":/images/document-properties.svg")));
 	ui->actionTraces->setIcon(QIcon::fromTheme("preview-file", QIcon(":/images/preview-file.svg")));
-	ui->actionBestScores->setIcon(QIcon::fromTheme("x-office-spreadsheet", QIcon(":/images/x-office-spreadsheet.svg")));
+	ui->actionBestScores->setIcon(QIcon::fromTheme("face-smile", QIcon(":/images/emblem-OK.svg")));
 	ui->actionMainPage->setIcon(QIcon::fromTheme("go-home", QIcon(":/images/go-home.svg")));
-	ui->actionReplay->setIcon (QIcon::fromTheme("document-revert", QIcon(":/images/document-revert.svg")));
-	ui->actionDemo->setIcon (QIcon::fromTheme("media-playback-start", QIcon(":/images/media-playback-start.svg")));
 
 	ui->actionOptions->setCheckable(true);
 	ui->actionBestScores->setCheckable(true);
@@ -69,10 +115,8 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	ui->actionTraces->setCheckable(true);
 
 	ui->mainToolBar->addAction(ui->actionNew);
-	ui->mainToolBar->addAction(ui->actionDemo);
 	ui->mainToolBar->addSeparator();
 	ui->mainToolBar->addAction(ui->actionOpen);
-	ui->mainToolBar->addAction(ui->actionReplay);
 	ui->mainToolBar->addAction(ui->actionSave);
 	ui->mainToolBar->addSeparator();
 	ui->mainToolBar->addAction(ui->actionUndo);
@@ -95,7 +139,7 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	ui->scoreTable->setHorizontalHeaderLabels(titles);
 
 	// écran d'aide
-	ui->helpTabs->setCurrentIndex(1);	// au démarrage F1 -> écran d'aide
+	ui->helpTabs->setCurrentIndex(1);	// au dmarrage F1 -> cran d'aide
 
 	// sélecteurs de couleurs
 	m_tapisColorSelect = new ColorSelectButton(this);
@@ -127,10 +171,8 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	connect (ui->actionOptions, SIGNAL(triggered()), this, SLOT(onActionOptionsTriggered()));
 	connect (ui->actionBestScores, SIGNAL(triggered()), this, SLOT(onActionBestScoresTriggered()));
 	connect (ui->actionHelp, SIGNAL(triggered()), this, SLOT(onActionHelpTriggered()));
-	connect (ui->actionNew, SIGNAL(triggered()), this, SLOT(onActionNew()));
+	connect (ui->actionNew, SIGNAL(triggered()), this, SLOT(newGame()));
 	connect (ui->actionOpen, SIGNAL(triggered()), this, SLOT(openTheGame()));
-	connect (ui->actionReplay, SIGNAL(triggered()), this, SLOT(onActionReplay()));
-
 	connect (ui->actionSave, SIGNAL(triggered()), this, SLOT(saveTheGame()));
 	connect (ui->actionAbout, SIGNAL(triggered()), this, SLOT(onActionAboutNemNem()));
 	connect (ui->actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -139,12 +181,11 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	connect (ui->actionUndo, SIGNAL(triggered()), this, SLOT(onActionUndoTriggered()));
 	connect (ui->actionTraces, SIGNAL(triggered()), this, SLOT(onActionTracesTriggered()));
 	connect (ui->actionMainPage, SIGNAL(triggered()), this, SLOT(onActionMainPageTriggered()));
-	connect (ui->actionDemo, SIGNAL(triggered()), this, SLOT(onActionModeDemo()));
 
 	// scores
 	connect (ui->clearScores, SIGNAL(clicked()), this, SLOT(onClearScores()));
 
-	// sélecteurs de couleurs
+	// slecteurs de couleurs
 	connect (m_tapisColorSelect, SIGNAL(colorChanged(QColor)), m_gameBoard, SLOT(setBackgroundColor(QColor)));
 	connect (m_tapisColorSelect, SIGNAL(colorChanged(QColor)), m_demoGameBoard, SLOT(setBackgroundColor(QColor)));
 	connect (m_bordColorSelect, SIGNAL(colorChanged(QColor)), m_gameBoard, SLOT(setBorderColor(QColor)));
@@ -156,9 +197,9 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	connect (m_selectionColorSelect, SIGNAL(colorChanged(QColor)), m_demoGameBoard, SLOT(setDiceSelectedColor(QColor)));
 	connect (m_pointsColorSelect, SIGNAL(colorChanged(QColor)), m_gameBoard, SLOT(setDicePipsColor(QColor)));
 	connect (m_pointsColorSelect, SIGNAL(colorChanged(QColor)), m_demoGameBoard, SLOT(setDicePipsColor(QColor)));
-	connect (m_selectionColorSelect, SIGNAL(colorChanged(QColor)), m_player[HUMAN], SLOT(setSuggestionColor(QColor)));
-	connect (m_playerColorSelect, SIGNAL(colorChanged(QColor)), m_player[HUMAN], SLOT(setGoodColor(QColor)));
-	connect (m_robotColorSelect, SIGNAL(colorChanged(QColor)), m_player[ROBOT], SLOT(setGoodColor(QColor)));
+	connect (m_selectionColorSelect, SIGNAL(colorChanged(QColor)), m_grilleModelHuman, SLOT(setSuggestionColor(QColor)));
+	connect (m_playerColorSelect, SIGNAL(colorChanged(QColor)), m_grilleModelHuman, SLOT(setGoodColor(QColor)));
+	connect (m_robotColorSelect, SIGNAL(colorChanged(QColor)), m_grilleModelRobot, SLOT(setGoodColor(QColor)));
 
 	// préférences
 	connect (ui->optionSetDefaultColors, SIGNAL(clicked()), this, SLOT(setDefaultColors()));
@@ -174,7 +215,7 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	connect (ui->optionSimpleDisplay, SIGNAL(toggled(bool)), m_demoGameBoard, SLOT(setDiceSimpleAspect(bool)));
 
 	connect (ui->optionRollTime, SIGNAL(valueChanged(int)), this, SLOT(onChangeRollTimeValue(int)));
-	connect (ui->optionSuggestion, SIGNAL(toggled(bool)), m_player[HUMAN], SLOT(enableAutomate(bool)));
+	connect (ui->optionSuggestion, SIGNAL(toggled(bool)), m_humanEngine, SLOT(setEnabled(bool)));
 	connect (ui->optionAnimatedRobot, SIGNAL(toggled(bool)), m_gameBoard, SLOT(setAnimatedRobotRoll(bool)));
 
 	connect (ui->optionXRotate, SIGNAL(valueChanged(int)), this, SLOT(onUpdatePerspective()));
@@ -190,16 +231,38 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	connect (ui->optionBoardMessages, SIGNAL(toggled(bool)), m_gameBoard, SLOT(setMessagesOnBoard(bool)));
 
 	// messages
+	connect (m_humanEngine, SIGNAL(suggestion(QString)), this, SLOT(messageSuggestion(QString)));
+//	connect (m_robotEngine, SIGNAL(suggestion(QString)), this, SLOT(messageSuggestion(QString)));
+	connect (m_humanEngine, SIGNAL(analyze(QString)), this, SLOT(messageAnalyze(QString)));
+	connect (m_robotEngine, SIGNAL(analyze(QString)), this, SLOT(messageAnalyze(QString)));
 	connect (ui->clearLogs, SIGNAL(clicked()), this, SLOT(onClearLogs()));
-	connect (ui->optionTraceRobot, SIGNAL(toggled(bool)), m_player[ROBOT], SLOT(setAnalyzeLog(bool)));
+	connect (ui->optionTraceRobot, SIGNAL(toggled(bool)), m_robotEngine, SLOT(setAnalyzeLog(bool)));
 
 	// changement de fenêtre
 	connect (ui->stack, SIGNAL(currentChanged(int)), this, SLOT(onStackCurrentChanged(int)));
 
+	// *****************
+	// * moteur de jeu *
+	// *****************
 
+	// quand le joueur clique sur la feuille de jeu, prévenir le modèle
+	connect (m_tableViewHuman, SIGNAL(clicked (const QModelIndex & )), this, SLOT(onHumanViewClicked(const QModelIndex & )));
+	connect (m_gameBoard, SIGNAL(humanNewRoll()), this, SLOT(onMustDisableUndo()));
+
+	// quand une cellule de la grille est marquée, traiter l'événement
+	connect (m_humanGrille, SIGNAL(cellSelected(int,int)), this, SLOT(eventCellSelected(int,int)));
+	connect (m_robotGrille, SIGNAL(cellSelected(int,int)), this, SLOT(eventCellSelected(int,int)));
+	connect (m_humanGrille, SIGNAL(cellSuggested(int,int)), this, SLOT(eventCellSuggested(int,int)));
+
+	// quand la piste annonce une nouvelle liste de dés, traiter l'événement et l'historiser
+	connect (m_gameBoard, SIGNAL(newDiceValues(QList<int>)), this, SLOT(eventNewDiceValues(QList<int>)));
+
+
+	// **************
+	// * messagerie *
+	// **************
 
 	// page principale / paramètres de la QMainWindow
-	m_windowTitles.clear ();
 	m_windowTitles << tr("Une partie de Nem-Nem ?")
 			<< tr("Préférences")
 			<< tr("Meilleurs scores")
@@ -231,29 +294,16 @@ NemNemWindow::NemNemWindow(QWidget *parent)
 	QDir homeDir(QDir::homePath());
 	homeDir.mkdir(Default::nemNemHomeDir());
 
+	m_currentPlayer = HUMAN;
+	m_currentRollCount = 0;
+
 	setDefaultOptions();
-
-	// *****************
-	// * moteur de jeu *
-	// *****************
-
-	// quand le joueur annonce avoir marqué une case, traiter l'événement
-	connect (m_player[HUMAN], SIGNAL(cellSelected(int,int)), this, SLOT(eventCellSelected(int,int)));
-	connect (m_player[ROBOT], SIGNAL(cellSelected(int,int)), this, SLOT(eventCellSelected(int,int)));
-
-	// quand le joueur annonce avoir lancé les dés, traiter l'événement et l'historiser
-	connect (m_player[HUMAN], SIGNAL(newRoll(int,int,int,QList<int>)), this, SLOT(eventNewRoll(int, int, int, QList<int>)));
-	connect (m_player[ROBOT], SIGNAL(newRoll(int,int,int,QList<int>)), this, SLOT(eventNewRoll(int, int, int, QList<int>)));
-
-	// quand le joueur envoie un message
-	connect (m_player[HUMAN], SIGNAL(suggestion(QString)), this, SLOT(messageSuggestion(QString)));
-	connect (m_player[HUMAN], SIGNAL(analyze(QString)), this, SLOT(messageAnalyze(QString)));
-	connect (m_player[ROBOT], SIGNAL(analyze(QString)), this, SLOT(messageAnalyze(QString)));
 
 	// settings
 	m_settings = new QSettings(QSettings::UserScope, "PapaJaac", "Nem-Nem", this);
 	m_preferencesFileName = Default::nemNemHomePath() + "preferences.conf";
 	m_sessionFileName = Default::nemNemHomePath() + "session.nem";
+//	m_settings = new QSettings(m_preferencesFileName, QSettings::IniFormat, this);
 	m_sessionSettings = new QSettings(m_sessionFileName, QSettings::IniFormat, this);
 	m_justLoaded = false;
 	readSettings();
@@ -275,12 +325,26 @@ NemNemWindow::~NemNemWindow()
 	delete m_robotColorSelect;
 
 	delete m_gameBoard;
-	delete m_demoGameBoard;
-
-	delete m_sound;
+	delete m_grilleModelHuman;
+	delete m_grilleModelRobot;
+	delete m_tableViewHuman;
+	delete m_tableViewRobot;
+	delete m_humanGrille;
+	delete m_robotGrille;
 
 	delete m_settings;
 
+	delete m_robotEngine;
+	delete m_gameEngine;
+
+	foreach (int indice, QList<int> () << HUMAN << ROBOT) delete m_player [indice];
+}
+//----------------------------
+void NemNemWindow::startGame()
+{
+	// le jeu démarre en simulant un changement d'utilisateur robot -> humain
+	if (ui->optionSounds->isChecked())  m_sound->play(SOUND_NEWGAME);
+	endOfPlay(ROBOT);
 }
 //-----------------------------------
 void NemNemWindow::setDefaultColors()
@@ -314,42 +378,37 @@ void NemNemWindow::setDefaultOptions()
 	ui->optionSuggestion->setChecked(false);
 	ui->optionSimpleDisplay->setChecked(false);
 	ui->optionSounds->setChecked(Default::withSound());
-
-	m_currentPlayer = HUMAN;
-	m_currentTurn = 1;
-	m_currentRoll = 1;
 }
 //---------------------------
 void NemNemWindow::setNames()
 {
-	QString machineName (robotName());
+	QString machineName(robotName());
 	QString userName (humanName());
 	ui->robotName->setText (machineName);
 	ui->playerName->setText (userName);
-	m_player[HUMAN]->setName (userName);
-	m_player[ROBOT]->setName (machineName);
+//	m_player[ROBOT]->setName (machineName);
+//	m_player[HUMAN]->setName (userName);
 }
-
-//--------------------------------
-QString NemNemWindow::humanName ()
+//-------------------------------
+QString NemNemWindow::humanName()
 {
 	QString name (ui->optionPlayerName->text());
 
-	if (name.isEmpty()) name = SystemTools::getUserName ();
+	if (name.isEmpty()) name = SystemTools::getUserName();
 
 	return name;
 }
-//--------------------------------
-QString NemNemWindow::robotName ()
+//-------------------------------
+QString NemNemWindow::robotName()
 {
-	QString name (ui->optionRobotName->text ());
+	QString name (ui->optionRobotName->text());
 
-	if (name.isEmpty ()) name = tr("Robot");
+	if (name.isEmpty()) name = tr("Robot");
 
 	return name;
 }
-//---------------------------------------
-void NemNemWindow::onUpdatePerspective ()
+//--------------------------------------
+void NemNemWindow::onUpdatePerspective()
 {
 	qreal zoom = ui->optionZoom->value() / 100.0;
 
@@ -363,44 +422,44 @@ void NemNemWindow::onUpdatePerspective ()
 	m_demoView->setTransform(matrix);
 }
 
-//-----------------------------------------
-void NemNemWindow::onActionExitTriggered ()
+//----------------------------------------
+void NemNemWindow::onActionExitTriggered()
 {
 	close ();
 }
-//------------------------------------------------
-void NemNemWindow::closeEvent (QCloseEvent *event)
-{
-	saveSettings ();
-	event->accept ();
-}
-//--------------------------------------------
-void NemNemWindow::onActionOptionsTriggered ()
-{
-	ui->actionBestScores->setChecked (false);
-	ui->actionHelp->setChecked (false);
-	ui->actionAbout->setChecked (false);
-	ui->actionTraces->setChecked (false);
-	ui->stack->setCurrentIndex (ui->actionOptions->isChecked () ? 1 : 0);
-}
 //-----------------------------------------------
-void NemNemWindow::onActionBestScoresTriggered ()
+void NemNemWindow::closeEvent(QCloseEvent *event)
 {
-	ui->actionOptions->setChecked (false);
-	ui->actionHelp->setChecked (false);
-	ui->actionAbout->setChecked (false);
-	ui->actionTraces->setChecked (false);
-	ui->stack->setCurrentIndex (ui->actionBestScores->isChecked () ? 2 : 0);
+	saveSettings();
+	event->accept();
 }
-//---------------------------------------
-void NemNemWindow::onActionAboutNemNem ()
+//-------------------------------------------
+void NemNemWindow::onActionOptionsTriggered()
 {
-	ui->actionOptions->setChecked (false);
-	ui->actionBestScores->setChecked (false);
-	ui->actionHelp->setChecked (false);
-	ui->actionTraces->setChecked (false);
-	ui->helpTabs->setCurrentIndex (0);
-	ui->stack->setCurrentIndex (ui->actionAbout->isChecked () ? 3 : 0);
+	ui->actionBestScores->setChecked(false);
+	ui->actionHelp->setChecked(false);
+	ui->actionAbout->setChecked(false);
+	ui->actionTraces->setChecked(false);
+	ui->stack->setCurrentIndex(ui->actionOptions->isChecked() ? 1 : 0);
+}
+//----------------------------------------------
+void NemNemWindow::onActionBestScoresTriggered()
+{
+	ui->actionOptions->setChecked(false);
+	ui->actionHelp->setChecked(false);
+	ui->actionAbout->setChecked(false);
+	ui->actionTraces->setChecked(false);
+	ui->stack->setCurrentIndex(ui->actionBestScores->isChecked() ? 2 : 0);
+}
+//--------------------------------------
+void NemNemWindow::onActionAboutNemNem()
+{
+	ui->actionOptions->setChecked(false);
+	ui->actionBestScores->setChecked(false);
+	ui->actionHelp->setChecked(false);
+	ui->actionTraces->setChecked(false);
+	ui->helpTabs->setCurrentIndex(0);
+	ui->stack->setCurrentIndex(ui->actionAbout->isChecked() ? 3 : 0);
 }
 //----------------------------------------
 void NemNemWindow::onActionHelpTriggered()
@@ -431,24 +490,24 @@ void NemNemWindow::onActionMainPageTriggered()
 	ui->actionTraces->setChecked(false);
 	ui->stack->setCurrentIndex(0);
 }
-//------------------------------------------------
+//--------------------------------------------
 void NemNemWindow::onStackCurrentChanged(int page)
 {
-	setWindowTitle (m_windowTitles[page]);
+	setWindowTitle(m_windowTitles[page]);
 }
-//---------------------------------------------------
+//----------------------------------------------------
 void NemNemWindow::onChangeRollTimeValue(int newValue)
 {
 	m_gameBoard->setAnimationDuration(newValue);
 	m_demoGameBoard->setAnimationDuration(newValue);
 	ui->optionRollText->setText(tr("(%1 ms)").arg(newValue));
 }
-//-------------------------------
-void NemNemWindow::onActionNew ()
+//--------------------------
+void NemNemWindow::newGame()
 {
-	if (m_currentTurn != 1 && m_currentTurn != CELLS_COUNT)
+	if (!m_robotGrille->isEmpty() && !m_robotGrille->isFull())
 	{
-		int ask = QMessageBox::warning (
+		int ask = QMessageBox::warning(
 				this,
 				"Nem-Nem",
 				tr("Cette action va effacer la partie en cours et en commencer une nouvelle."),
@@ -456,128 +515,97 @@ void NemNemWindow::onActionNew ()
 				);
 		if (ask != QMessageBox::Ok) return;
 	}
-
-	m_player[HUMAN]->clear ();
-	m_player[ROBOT]->clear ();
+	m_humanGrille->clear();
+	m_robotGrille->clear();
 	m_gameBoard->clear();
 	m_messageList.clear();
 	onClearLogs();
-	m_currentPlayer = (isModeDemo () ? ROBOT : HUMAN);
-	m_currentTurn = 1;
-	m_currentRoll = 1;
-
 	startGame();
 }
-//***************
+//--------------------------------------------------------------
+void NemNemWindow::onHumanViewClicked(const QModelIndex & index)
+{
+	m_grilleModelHuman->setData(index, QVariant(), Qt::EditRole);
+}
+//--------------------------------------------------------------
+void NemNemWindow::onRobotViewClicked(const QModelIndex & index)
+{
+	m_grilleModelRobot->setData(index, QVariant(), Qt::EditRole);
+}
+
+//*****************
 //* Moteur de jeu *
-//***************
+//*****************
 
-void NemNemWindow::onActionModeDemo ()
+//------------------------------------
+void NemNemWindow::onMustDisableUndo()
 {
-	setModeDemo (true);
-	onActionNew ();
+	ui->actionUndo->setDisabled(true);
 }
-//----------------------------
-void NemNemWindow::startGame()
+//-------------------------------------------
+void NemNemWindow::onChangePlayer(int player)
 {
-	// le jeu démarre simplement en indiquant au joueur courant qu'il doit jouer
-	// ensuite on attend les SIGNALs
-	m_player[m_currentPlayer]->play (m_currentTurn, m_currentRoll);
-}
-//---------------------------------------------------------------
-void NemNemWindow::eventCellSelected(int row, int column)
-// le joueur courant a choisi une cellule
-{
-	//	historiser
-	message (tr("%1 a joué ligne %2, colonne %3")
-			 .arg(currentPlayerName())
-			 .arg(NNTools::rowName(row))
-			 .arg(NNTools::columnName(column))
-			 );
-
-	// puis changer de joueur
-	onChangePlayer ();
-}
-//-----------------------------------------------------------------------------------
-void NemNemWindow::eventNewRoll (int player, int turn, int roll, QList<int> diceList)
-// le joueur courant a fait rouler les dés
-{
-	// quand la piste annonce une nouvelle liste de dés...
-
-	// mise à jour de l'état du jeu
-	m_currentPlayer = player;
-	m_currentTurn = turn;
-	m_currentRoll = roll;
-
-	ui->actionUndo->setEnabled (m_currentPlayer == HUMAN
-								&& m_currentRoll == 1
-								&& m_currentTurn > 1
-								&& m_gameBoard->canUndo ()
-								);
-
-	QString msg (tr("Tour n°%1 - lancer n°%2 de %3 : %4-%5-%6-%7-%8 (total %9)"));
-
-	message ( msg
-			  .arg (m_currentTurn)
-			  .arg(m_currentRoll)
-			  .arg(currentPlayerName())
-			  .arg(diceList[0])
-			  .arg(diceList[1])
-			  .arg(diceList[2])
-			  .arg(diceList[3])
-			  .arg(diceList[4])
-			  .arg(NNTools::diceSum(diceList))
-			  );
-}
-//----------------------------------
-void NemNemWindow::onChangePlayer ()
-{
-
-	qApp->processEvents ();
-
-	if (m_player[ROBOT]->gridIsFull () && !m_justLoaded)
-	{
-		endOfTheGame ();
-		return;
-	}
-
-	m_justLoaded = false;
-
-	if (isModeDemo ())
-	{
-		m_currentPlayer = ROBOT;
-		m_currentTurn++;
-	}
-	else
-	{
-		if (m_currentPlayer == ROBOT)
-		{
-			m_currentPlayer = HUMAN;
-			m_currentTurn++;
-		}
-		else
-		{
-			m_currentPlayer = ROBOT;
-		}
-	}
-
-	m_currentRoll = 1;
-
-	m_diceView->setEnabled(m_currentPlayer == HUMAN);
-
-
-	m_player[m_currentPlayer]->play (m_currentTurn, m_currentRoll);
+	m_grilleModelHuman->setCurrentPlayer(player);
+	m_grilleModelRobot->setCurrentPlayer(player);
+	m_gameBoard->setCurrentPlayer(player);
 }
 //----------------------------------------
 void NemNemWindow::onActionUndoTriggered()
 {
+	m_robotGrille->undo();
+	m_humanGrille->undo();
+	m_gameBoard->setNextDiceValues(m_lastHumanRoll);
+	m_currentPlayer = HUMAN;
 	ui->actionUndo->setDisabled(true);
+	m_currentRollCount = m_lastHumanRollCount - 1;
+	newPlayer(m_lastHumanRollCount);
+}
+//----------------------------------
+void NemNemWindow::endOfPlay(int id)
+{
+	if (m_robotGrille->isFull() && !m_justLoaded)
+	{
+		endOfTheGame();
+		return;
+	}
 
-	if (!m_gameBoard->canUndo ()) return;
+	m_justLoaded = false;
+	m_diceView->setEnabled(true);
 
-	m_player[ROBOT]->undo ();
-	m_player[HUMAN]->undo ();
-	m_gameBoard->undo ();
+	if (id == HUMAN)
+	{
+		// action annuler !!!!
+		m_lastHumanRoll = m_gameBoard->diceValues();
+		m_lastHumanRollCount = m_currentRollCount;
+		m_diceView->setEnabled(false);
+		ui->actionUndo->setEnabled(true);
+
+		m_currentPlayer = ROBOT;
+	}
+	else
+	{
+		if (ui->optionDemoMode->isChecked()) // #ifdef DEMO
+		{
+			m_currentPlayer = ROBOT;
+		}
+		else // #else
+		{
+			m_diceView->setEnabled(true);
+			m_currentPlayer = HUMAN;
+		} // #endif
+	}
+	m_currentRollCount = 0;
+	newPlayer(3);
+}
+//--------------------------------------------
+void NemNemWindow::newPlayer(int maxRollCount)
+{
+	m_maxCurrentRollCount = maxRollCount;
+	m_tableViewHuman->setEnabled(m_currentPlayer == HUMAN);
+	m_tableViewRobot->setEnabled(m_currentPlayer == ROBOT);
+
+	onChangePlayer(m_currentPlayer);
+	m_gameBoard->rollAllDice();
 }
 //-------------------------------
 void NemNemWindow::endOfTheGame()
@@ -588,17 +616,11 @@ void NemNemWindow::endOfTheGame()
 	// historiser la partie
 
 	ui->actionUndo->setDisabled(true);
-	ui->humanView->setEnabled(false);
-	ui->robotView->setEnabled(false);
+	m_tableViewHuman->setEnabled(false);
+	m_tableViewRobot->setEnabled(false);
+	int humanScore = m_humanGrille->generalTotal();
+	int robotScore = m_robotGrille->generalTotal();
 
-	if (isModeDemo ())
-	{
-		setModeDemo (false);
-		return;
-	}
-
-	int humanScore = m_player[HUMAN]->generalTotal ();
-	int robotScore = m_player[ROBOT]->generalTotal ();
 
 	QString felicitations;
 	int winner = HUMAN;
@@ -718,6 +740,59 @@ void NemNemWindow::message (QString msg, QColor color)
 	ui->messages->insertPlainText(msg + "\n");
 	statusBar()->showMessage (msg);
 }
+//---------------------------------------------------------------
+void NemNemWindow::eventCellSelected(int row, int column)
+{
+	//	historiser
+	message (tr("%1 a joué ligne %2, colonne %3")
+			 .arg(currentPlayerName())
+			 .arg(NemNemTools::rowName(row))
+			 .arg(NemNemTools::columnName(column))
+			 );
+
+	endOfPlay(m_currentPlayer);
+}
+//--------------------------------------------------------
+void NemNemWindow::eventCellSuggested(int row, int column)
+{
+	//	historiser puis...
+	m_grilleModelHuman->cellChanged(row, column);
+}
+//------------------------------------------------------
+void NemNemWindow::eventNewDiceValues(QList<int> diceList)
+{
+	// quand la piste annonce une nouvelle liste de dés...
+	m_currentRollCount++;
+
+	QString msg (tr("Lancer n°%1 de %2 : %3-%4-%5-%6-%7 (total %8)"));
+
+	message ( msg
+			  .arg(m_currentRollCount)
+			  .arg(currentPlayerName())
+			  .arg(diceList[0])
+			  .arg(diceList[1])
+			  .arg(diceList[2])
+			  .arg(diceList[3])
+			  .arg(diceList[4])
+			  .arg(NemNemTools::diceSum(diceList))
+			  );
+
+	if (m_currentRollCount >= m_maxCurrentRollCount)
+		m_diceView->setDisabled(true);
+
+	if (m_currentPlayer == HUMAN)
+	{
+		m_grilleModelHuman->setDiceList(diceList, m_currentRollCount);
+		m_tableViewHuman->update();
+		m_humanEngine->run(m_currentRollCount);
+	}
+	else
+	{
+		m_grilleModelRobot->setDiceList(diceList, m_currentRollCount);
+		m_tableViewRobot->update();
+		m_robotEngine->run(m_currentRollCount);
+	}
+}
 //------------------------------
 void NemNemWindow::saveTheGame()
 {
@@ -733,7 +808,7 @@ void NemNemWindow::saveTheGame()
 //********************************
 
 //------------------------------
-bool NemNemWindow::openTheGame()
+void NemNemWindow::openTheGame()
 {
 	static QString currentDialogDir(QDir::homePath());
 	QString selectedFilter;
@@ -747,8 +822,6 @@ bool NemNemWindow::openTheGame()
 									&selectedFilter);
 
 	if (!fileName.isEmpty()) loadGame(fileName, true);
-
-	return (!fileName.isEmpty());
 }
 //-------------------------------
 void NemNemWindow::saveSettings()
@@ -882,12 +955,9 @@ void NemNemWindow::readSettings()
 	}
 	m_settings->endArray();
 
-	m_settings->sync ();
-
 	m_justLoaded = true;
 
 	if (!ui->optionLoadLastGame->isChecked()) return;
-
 	loadGame(Default::sessionFile(), false);
 }
 //--------------------------------------------------------------------
@@ -896,12 +966,10 @@ void NemNemWindow::saveGame (QString fileName, bool messageWhenError)
 	{
 		QSettings settings (fileName, QSettings::IniFormat);
 
-		settings.beginGroup("general");
-		settings.setValue("type", "nemnemsave");
-		settings.setValue("version", qApp->applicationVersion());
-		settings.setValue("date", QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+		settings.beginGroup("type");
+		settings.setValue("nemnemsave", true);
 		settings.endGroup();
-
+		settings.sync();
 		if (settings.status() == QSettings::AccessError)
 		{
 			if (messageWhenError)
@@ -913,14 +981,16 @@ void NemNemWindow::saveGame (QString fileName, bool messageWhenError)
 		}
 	}
 
+	m_gameEngine->saveTo(fileName);
+	m_humanGrille->saveTo(fileName);
+	m_robotGrille->saveTo(fileName);
 	m_gameBoard->saveTo(fileName);
-	m_player[HUMAN]->saveTo(fileName);
-	m_player[ROBOT]->saveTo(fileName);
+
 }
-//-------------------------------------------------------------------
+//--------------------------------------------------------------------
 void NemNemWindow::loadGame (QString fileName, bool messageWhenError)
 {
-	if (!NNTools::isANemNemSaveFormat(fileName))
+	if (!NemNemTools::isANemNemSave(fileName))
 	{
 		if (messageWhenError)
 		{
@@ -931,22 +1001,8 @@ void NemNemWindow::loadGame (QString fileName, bool messageWhenError)
 		return;
 	}
 
-	m_player[HUMAN]->loadFrom(fileName);
-	m_player[ROBOT]->loadFrom(fileName);
+	m_gameEngine->loadFrom(fileName);
+	m_humanGrille->loadFrom(fileName);
+	m_robotGrille->loadFrom(fileName);
 	m_gameBoard->loadFrom(fileName);
-	m_gameBoard->getCurrentPlayerData (m_currentPlayer, m_currentTurn, m_currentRoll);
-	setModeDemo (false);
-}
-
-//---------------------------------
-void NemNemWindow::onActionReplay()
-{
-	setModeDemo (false);
-	if (!openTheGame ()) return;
-	m_player[HUMAN]->clear ();
-	m_player[ROBOT]->clear ();
-	m_currentPlayer = HUMAN;
-	m_currentTurn = 1;
-	m_currentRoll = 1;
-	m_player[m_currentPlayer]->play (m_currentTurn, m_currentRoll);
 }

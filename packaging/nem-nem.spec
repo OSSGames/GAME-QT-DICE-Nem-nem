@@ -1,5 +1,5 @@
 Name:           nem-nem
-Version:        2011.05.1
+Version:        2011.05.1b
 Summary:        A dice game like Yam's or Yahtzee
 Release:        %mkrel 1
 License:        GPLv3
@@ -59,10 +59,6 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu May 26 2011 Gilles Pascual <gpascual@mandriva.org> 2011.05.1-1mdv2010.2
-- Bug fix in sources when running Nem-Nem under OS2
-- Bug fix in save format
-
 * Wed May 25 2011 Gilles Pascual <gpascual@mandriva.org> 2011.05.1b-1mdv2010.2
 - New human readable save format
 

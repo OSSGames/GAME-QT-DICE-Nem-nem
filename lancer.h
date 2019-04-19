@@ -71,6 +71,9 @@ public:
 	Figure& moins() { return m_moins; }
 	Figure& nemNem() { return m_nemNem; }
 
+	//------------ sérialisation -----
+	void saveTo (QDataStream& out);
+	void loadFrom (QDataStream& in);
 };
 
 // ------------ Inlines

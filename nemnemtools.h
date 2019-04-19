@@ -11,7 +11,7 @@
 #include "defines.h"
 
 //--------------------------------
-class NNTools : public QObject
+class NemNemTools : public QObject
 {
 	Q_OBJECT
 
@@ -25,27 +25,27 @@ public:
 	static QString format (QList<int> diceValues, QString separator);
 	static QString listToString(QList<int> list);
 	static QList<int> stringToList(QString string);
-	static bool isANemNemSaveFormat(QString fileName);
+	static bool isANemNemSave(QString fileName);
 };
 
 
 //------------------------------------
-inline int NNTools::alea(int max)	// un nombre aléatoire entre 1 et max
+inline int NemNemTools::alea(int max)	// un nombre aléatoire entre 1 et max
 {
 	return (qrand() % max) + 1;
 }
 //-----------------------------------------
-inline int NNTools::signedAlea(int max)	// un nombre aléatoire entre 1 et max
+inline int NemNemTools::signedAlea(int max)	// un nombre aléatoire entre 1 et max
 {
 	return ((qrand() % max) + 1) * (alea(1000) > 500 ? 1 : -1);
 }
 //--------------------------------
-inline int NNTools::alea1_6 () // un nombre aléatoire entre 1 et 6
+inline int NemNemTools::alea1_6 () // un nombre aléatoire entre 1 et 6
 {
 	return alea(6);
 }
 //-----------------------------------------------------
-inline int NNTools::diceSum (QList<int> diceValues)
+inline int NemNemTools::diceSum (QList<int> diceValues)
 {
 	return diceValues.at(0) +
 			diceValues.at(1) +
