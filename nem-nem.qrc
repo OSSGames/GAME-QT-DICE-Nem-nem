@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/nemnemsplash.png</file>
+        <file>images/ordiuneflechebas.png</file>
+        <file>images/ordiuneflechehaut.png</file>
+        <file>images/papajaac.gif</file>
+        <file>images/roll.png</file>
+        <file>images/rollselected.png</file>
+        <file>images/tetedeuxfleches.png</file>
+        <file>images/teteuneflechebas.png</file>
+        <file>images/teteuneflechehaut.png</file>
+        <file>images/ordideuxfleches.png</file>
+        <file>images/distrologo.png</file>
+        <file>images/document-new.svg</file>
+        <file>images/document-open.svg</file>
+        <file>images/document-properties.svg</file>
+        <file>images/document-revert.svg</file>
+        <file>images/document-save.svg</file>
+        <file>images/edit-undo.svg</file>
+        <file>images/go-down.svg</file>
+        <file>images/go-home.svg</file>
+        <file>images/go-jump.svg</file>
+        <file>images/go-up.svg</file>
+        <file>images/gtk-info.svg</file>
+        <file>images/help-about.svg</file>
+        <file>images/help-contents.svg</file>
+        <file>images/help-hint.svg</file>
+        <file>images/Nokia-QtCreator.png</file>
+        <file>images/preview-file.svg</file>
+        <file>images/window-close.svg</file>
+        <file>images/nem-nem.png</file>
+        <file>images/chiffres.png</file>
+        <file>images/relief.png</file>
+        <file>images/simple.png</file>
+        <file>images/applications-multimedia.svg</file>
+        <file>images/optionSounds.svg</file>
+        <file>sounds/applause.wav</file>
+        <file>sounds/drumRoll.wav</file>
+        <file>sounds/newGame.wav</file>
+        <file>sounds/rollDice.wav</file>
+        <file>images/nem-nem-ordinateur.png</file>
+        <file>images/nem-nem-tete.png</file>
+        <file>images/view-refresh.svg</file>
+        <file>images/media-playback-start.svg</file>
+        <file>images/x-office-spreadsheet.svg</file>
+    </qresource>
+</RCC>

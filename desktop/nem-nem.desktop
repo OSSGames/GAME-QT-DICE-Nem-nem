@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Name=Nem-Nem
+Comment=Dice game like Yahtzee or Yam's
+Comment[fr]=Jeu de dés dérivé du Yahtzee et du Yam's
+Exec=nem-nem
+Icon=nem-nem
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Game;BoardGame;
+Name[fr_FR]=Nem-Nem
+
